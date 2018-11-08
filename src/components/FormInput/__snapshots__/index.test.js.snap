@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FormInput should render correctly 1`] = `
+<div>
+  <label>
+    Name
+  </label>
+  <input
+    className="ant-input"
+    disabled={false}
+    onChange={[Function]}
+    onKeyDown={[Function]}
+    type="text"
+    value="132"
+  />
+</div>
+`;
