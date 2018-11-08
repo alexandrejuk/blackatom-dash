@@ -21,6 +21,9 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>src/setupTests.js"
+  },
   "browserslist": [
     ">0.2%",
     "not dead",
@@ -28,11 +31,14 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@storybook/react": "^4.0.4",
+    "@babel/core": "^7.1.5",
     "@storybook/addon-actions": "^4.0.4",
     "@storybook/addon-links": "^4.0.4",
     "@storybook/addons": "^4.0.4",
-    "@babel/core": "^7.1.5",
-    "babel-loader": "^8.0.4"
+    "@storybook/react": "^4.0.4",
+    "babel-loader": "^8.0.4",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.7.0",
+    "react-test-renderer": "^16.6.1"
   }
 }
