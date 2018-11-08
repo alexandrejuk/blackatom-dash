@@ -10,10 +10,10 @@ import './styles.css'
 
 const { RangePicker } = DatePicker
 
-const FilterHeader = ({ onShowMore }) => <div>
+const FilterHeader = ({ onShowMore, collapsed }) => <div>
   <RangePicker />
   <Input style={{ width: "200px"}}/>
-  <Button onClick={onShowMore}> Mais </Button>
+  <Button type="primary" icon={collapsed ? 'down' : 'up'} onClick={onShowMore}> Mais Filtros </Button>
 </div>
 
 class Filter extends PureComponent {
@@ -35,7 +35,7 @@ class Filter extends PureComponent {
 
     return (<div>
       <Card
-        title={<FilterHeader onShowMore={this.handleOnShowMore}/>}
+        title={<FilterHeader onShowMore={this.handleOnShowMore} collapsed={this.state.collapsed}/>}
         className={cardClasses}
         style={{ width: '100%' }}
       >
