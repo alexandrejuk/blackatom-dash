@@ -1,0 +1,3 @@
+.cardCollapsed > .ant-card-body {
+  display: none;
+}
