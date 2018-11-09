@@ -1,11 +1,11 @@
 import React from 'react'
-import { Input } from 'antd'
+import { Input, InputNumber } from 'antd'
 import PropTypes from 'prop-types'
 
 const FormInput = ({ label, type, value, onChange }) => ( 
  <div>
     <label>{label}</label>
-    <Input type={type} value={value} onChange={onChange}/>
+    {type === 'number' ? <InputNumber value={value} onChange={onChange} /> : <Input type={type} value={value} onChange={onChange}/>}
  </div>
 )
  

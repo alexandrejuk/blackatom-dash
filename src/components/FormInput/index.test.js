@@ -15,7 +15,7 @@ beforeAll(() => {
   )
 })
 
-test('FormInput should render correctly', () => {
+test('should render correctly', () => {
   const component = renderer.create(
     <FormInput 
       label="Name"
@@ -28,14 +28,30 @@ test('FormInput should render correctly', () => {
   expect(tree).toMatchSnapshot()
 })
 
-test('FormInput should have a label', () => {
+test('should have a label', () => {
   const label = wrapper.find('label')
   expect(label).toHaveLength(1)
   expect(label.contains('Name')).toBeTruthy()
 })
 
-test('FormInput should have a Input', () => {
+test('should have a Input', () => {
   const input = wrapper.find('Input')
   expect(input).toHaveLength(1)
   expect(input.prop('type')).toBe('text')
+  expect(input.prop('value')).toBe('132')
+})
+
+test('should have a InputNumber if type is number', () => {
+  const wrapperFormInput = shallow(
+    <FormInput 
+      label="Name"
+      type="number"
+      value="132"
+      onChange={() => null}
+    />
+  )
+
+  const inputNumber = wrapperFormInput.find('InputNumber')
+  expect(inputNumber).toHaveLength(1)
+  expect(inputNumber.prop('value')).toBe('132')
 })
