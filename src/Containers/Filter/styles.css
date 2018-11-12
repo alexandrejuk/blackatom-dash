@@ -1,3 +1,16 @@
 .cardCollapsed > .ant-card-body {
   display: none;
 }
+.cartTitle > * {
+  margin-left: 10px;
+}
+.ant-card-body {
+  display: flex;
+  flex-wrap: wrap;
+}
+.input-group {
+  padding: 0 5px;
+}
+.label-filter {
+  display: block
+}

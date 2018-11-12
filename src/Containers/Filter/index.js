@@ -5,12 +5,13 @@ import {
   Input,
   Button
 } from 'antd'
+import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import './styles.css'
 
 const { RangePicker } = DatePicker
 
-const FilterHeader = ({ onShowMore, collapsed }) => <div>
+const FilterHeader = ({ onShowMore, collapsed }) => <div className="cartTitle">
   <RangePicker />
   <Input style={{ width: "200px"}}/>
   <Button type="primary" icon={collapsed ? 'down' : 'up'} onClick={onShowMore}> Mais Filtros </Button>
@@ -29,6 +30,7 @@ class Filter extends PureComponent {
   }
 
   render () {
+    const { filters } = this.props
     const cardClasses = classnames({
       cardCollapsed: this.state.collapsed
     })
@@ -39,12 +41,22 @@ class Filter extends PureComponent {
         className={cardClasses}
         style={{ width: '100%' }}
       >
-        <p>Card content</p>
-        <p>Card content</p>
-        <p>Card content</p>
+      {filters.map(filter => (
+        <div className="input-group" key={filter.property} >
+          <label className="label-filter">{filter.label} </label>
+          <Input 
+            style={{ width: filter.width }}
+            type={filter.type}
+          />
+        </div>
+      ))}
       </Card>
     </div>)
   }
 } 
+
+Filter.propTypes = {
+  filters: PropTypes.array.isRequired
+}
 
 export default Filter
