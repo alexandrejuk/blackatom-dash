@@ -1,12 +1,7 @@
 import React from 'react'
-import { Button } from 'antd'
-
+import Logged from './Logged'
 const Pages = () => (
-  <div>
-    <Button>
-      CLICK ON ME
-    </Button>
-  </div>
+ <Logged />
 )
 
 export default Pages
