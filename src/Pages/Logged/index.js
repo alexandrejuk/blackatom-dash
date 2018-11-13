@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
-import { Layout, Menu, Icon } from 'antd';
+import { Layout, Menu, Icon } from 'antd'
+import { Route, Switch } from 'react-router-dom'
+import Home from '../Home'
+import Products from  './Products'
+import Orders from './Orders'
 
-const { Header, Sider, Content } = Layout;
+const { Header, Sider, Content } = Layout
 
 class Logged extends Component {
   state = {
@@ -57,7 +61,11 @@ class Logged extends Component {
               minHeight: 280 
               }}
           >
-            Content
+            <Switch>
+              <Route exact path="/" component={Home}/>
+              <Route path="/products" component={Products}/>
+              <Route path="/orders" component={Orders}/>
+            </Switch>
           </Content>
         </Layout>
       </Layout>

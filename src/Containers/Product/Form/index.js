@@ -13,18 +13,16 @@ class NewProduct extends React.Component {
     
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.submit(values)
-        console.log('Received values of form: ', values);
+        this.props.onSubmit(values)
       }
     });
   }
 
   render() {
-    const { getFieldDecorator } = this.props.form;
+    const { form: { getFieldDecorator }, actionLabel  } = this.props
     return (
       <Form
         onSubmit={this.handleSubmit}
-        ini
       >
         <FormItem
           label="Nome"
@@ -117,7 +115,7 @@ class NewProduct extends React.Component {
           wrapperCol={{ span: 12, offset: 5 }}
         >
           <Button type="primary" htmlType="submit">
-            Salvar
+            {actionLabel}
           </Button>
         </FormItem>
       </Form>
