@@ -11,4 +11,4 @@ const filters = [
 ]
 
 storiesOf('Filter', module)
-  .add('filter default', () => <Filter  filters={filters} />)
+  .add('filter default', () => <Filter filters={filters} />)

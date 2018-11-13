@@ -15,6 +15,8 @@ const FilterHeader = ({ onShowMore, collapsed }) => <div className="cartTitle">
   <RangePicker />
   <Input style={{ width: "200px"}}/>
   <Button type="primary" icon={collapsed ? 'down' : 'up'} onClick={onShowMore}> Mais Filtros </Button>
+  <Button type="primary"> Limpar Filtros </Button>
+  <Button type="primary"> Pesquisar </Button>
 </div>
 
 class Filter extends PureComponent {
@@ -23,7 +25,6 @@ class Filter extends PureComponent {
   }
 
   handleOnShowMore = () => {
-    console.log(this.state.collapsed)
     this.setState((state) => ({
       collapsed: !state.collapsed
     }))
@@ -47,6 +48,7 @@ class Filter extends PureComponent {
           <Input 
             style={{ width: filter.width }}
             type={filter.type}
+            name={filter.property}
           />
         </div>
       ))}
