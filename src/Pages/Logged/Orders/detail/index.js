@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import orderService from '../../../../services/orders'
 import './index.css'
 import iconCheck from '../../../../assets/icon/checked.svg'
-import { Col, Row, Button } from 'antd'
+import iconCancell from '../../../../assets/icon/delete.svg'
+
+import { Col, Row, Button, Alert } from 'antd'
 import ProductList from '../../../../Containers/Order/ProductList'
 
 class OrderList extends Component {
@@ -16,7 +18,17 @@ class OrderList extends Component {
 
   async getOrder() {
     const id = this.props.match.params.id
-    const order = await orderService.getOrderById(id)
+    const order = await orderService
+      .getOrderById(id)
+      .then(response => response.data)
+
+    this.setState({ order })
+  }
+
+  handleCancellOrder = async () => {
+    const id = this.props.match.params.id
+    const order = await orderService
+      .updateOrderById(id)
       .then(response => response.data)
     this.setState({ order })
   }
@@ -26,7 +38,11 @@ class OrderList extends Component {
     return (
       <div className="wrapper">
         <div>
-          <img src={iconCheck} className="checkIcon" alt="check-icon" />
+            {
+              order.status !== 'CANCELLED' ? 
+              <img src={iconCheck} className="checkIcon" alt="check-icon" /> :
+              <img src={iconCancell} className="cancellIcon" alt="cancell-icon" />
+            }
         </div>
         <h1>Detalhes da Compra</h1>
         <div className="content">
@@ -53,7 +69,11 @@ class OrderList extends Component {
           </Row>
         </div>
         <div className="footer">
-          <Button type="danger">Cancelar Compra</Button>
+          {
+            order.status !== 'CANCELLED' ? 
+            <Button type="danger" onClick={this.handleCancellOrder}>Cancelar Compra</Button> :
+            <Alert type="error" message="Compra Cancelada" banner />
+          }
         </div>
       </div>
     )

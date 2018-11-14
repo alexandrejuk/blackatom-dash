@@ -15,8 +15,13 @@ const getOrderById = (id) => {
   return axios.get(`${endpoint}/${id}`)
 }
 
+const updateOrderById = (id) => {
+  return axios.put(`${endpoint}/${id}`)
+}
+
 export default {
   addOrder,
   orderList,
   getOrderById,
+  updateOrderById,
 }
