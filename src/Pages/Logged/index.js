@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Layout, Menu, Icon } from 'antd'
+import { Layout, Icon } from 'antd'
 import { Route, Switch } from 'react-router-dom'
 import Home from '../Home'
 import Products from  './Products'

@@ -1,0 +1,28 @@
+.wrapper {
+  text-align: center;
+  margin: 48px 70px;
+}
+.content {
+  background: #fafafa;
+  padding: 24px 40px;
+  border-radius: 2px;
+  text-align: left;
+}
+.checkIcon {
+  width: 72px;
+  height: 72px;
+}
+.orderDescription, .productsOrderTitle {
+  font-size: 16px; 
+  font-weight: 500; 
+  margin-bottom: 20px;
+}
+.spanTitle .orderDescription {
+  color: rgba(0, 0, 0, 0.85); 
+}
+.orderProducts {
+  margin-top: 45px;
+}
+.footer {
+  margin-top: 20px;
+}
