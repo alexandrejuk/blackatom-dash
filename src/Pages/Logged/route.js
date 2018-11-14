@@ -26,6 +26,46 @@ const routes = [
         path: '/orders/list'
       }
     ]
+  },
+  {
+    title: 'Estoque',
+    iconType: 'swap',
+    subRoutes: [
+      {
+        title: 'Gerenciar',
+        path: '/stock/manager'
+      },
+      {
+        title: 'Disponíveis',
+        subRoutes: [
+          {
+            title: 'Novo',
+            path: '/stock/available/new'
+          },
+          {
+            title: 'Listar',
+            path: '/stock/available/list'
+          },
+        ]
+      },
+      {
+        title: 'Reservar',
+        subRoutes: [
+          {
+            title: 'Novo',
+            path: '/stock/reserve/new'
+          },
+          {
+            title: 'Listar',
+            path: '/stock/reserve/list'
+          },
+        ]
+      },
+      {
+        title: 'Liberar',
+        path: '/stock/release'
+      }
+    ]
   }
 ]
 

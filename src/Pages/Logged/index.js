@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
 import { Layout, Icon } from 'antd'
 import { Route, Switch } from 'react-router-dom'
+
+import SideMenu from '../../Containers/SideMenu'
+
 import Home from '../Home'
 import Products from  './Products'
 import Orders from './Orders'
-import SideMenu from '../../Containers/SideMenu'
+import Stock from './Stock'
+
 import route from './route'
 
 const { Header, Content, Footer } = Layout
@@ -48,6 +52,7 @@ class Logged extends Component {
               <Route exact path="/" component={Home}/>
               <Route path="/products" component={Products}/>
               <Route path="/orders" component={Orders}/>
+              <Route path="/stock" component={Stock}/>
             </Switch>
           </Content>
           <Footer style={{ textAlign: 'center' }}>
