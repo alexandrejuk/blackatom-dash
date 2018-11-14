@@ -17,6 +17,8 @@ const columns = [
     title: 'Criado',
     dataIndex: 'createdAt',
     key: 'createdAt',
+    render: (createdAt) => 
+      new Intl.DateTimeFormat('pt-BR').format(new Date(createdAt))
   },
   {
     title: 'Ações',
