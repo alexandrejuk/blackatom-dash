@@ -7,7 +7,7 @@ import Orders from './Orders'
 import SideMenu from '../../Containers/SideMenu'
 import route from './route'
 
-const { Header, Content } = Layout
+const { Header, Content, Footer } = Layout
 
 
 class Logged extends Component {
@@ -50,6 +50,9 @@ class Logged extends Component {
               <Route path="/orders" component={Orders}/>
             </Switch>
           </Content>
+          <Footer style={{ textAlign: 'center' }}>
+            BlackAtom ©2018 Created by Connecta Dash
+          </Footer>
         </Layout>
       </Layout>
     );
