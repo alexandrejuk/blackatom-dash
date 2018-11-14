@@ -5,6 +5,7 @@ import Home from '../Home'
 import Products from  './Products'
 import Orders from './Orders'
 import SideMenu from '../../Containers/SideMenu'
+import route from './route'
 
 const { Header, Content } = Layout
 
@@ -32,7 +33,7 @@ class Logged extends Component {
   render() {
     return (
       <Layout style={{overflow: 'inital', minHeight: '100vh'}}>
-        <SideMenu collapsed={this.state.collapsed}/>
+        <SideMenu collapsed={this.state.collapsed} route={route}/>
         <Layout>
           {this.renderHeader()}
           <Content 
