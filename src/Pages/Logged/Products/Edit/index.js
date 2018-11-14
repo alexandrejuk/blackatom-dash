@@ -18,15 +18,22 @@ class EditProduct extends Component {
 
     const product = await productService.getProductById(id)
       .then(response => response.data)
-    
+
+    this.setForm(product)
+  }
+
+  setForm = (product) => {
     this.setState({ product })
     
     const productForm = omit(['id', 'createdAt', 'updatedAt', 'deletedAt'], product)
     this.form.props.form.setFieldsValue(productForm)
   }
 
-  async handleOnSubmit(values) {
-    await productService.editProduct(35, values)
+  handleOnSubmit = async (values) => {
+    const updatedProduct = await productService.editProduct(this.state.product.id, values)
+      .then(response => response.data)
+    
+    this.setForm(updatedProduct)
   }
 
   render() { 
