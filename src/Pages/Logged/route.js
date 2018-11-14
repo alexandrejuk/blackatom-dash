@@ -1,39 +1,15 @@
 const routes = [
   {
-    title: 'Produtos',
-    iconType: 'user',
-    subRoutes: [
-      {
-        title: 'Novo',
-        path: '/products/new'
-      },
-      {
-        title: 'Listar',
-        path: '/products/list'
-      }
-    ]
-  },
-  {
-    title: 'Compras',
-    iconType: 'shopping-cart',
-    subRoutes: [
-      {
-        title: 'Nova',
-        path: '/orders/new'
-      },
-      {
-        title: 'Listar',
-        path: '/orders/list'
-      }
-    ]
-  },
-  {
     title: 'Estoque',
     iconType: 'swap',
     subRoutes: [
       {
         title: 'Gerenciar',
         path: '/stock/manager'
+      },
+      {
+        title: 'Liberar',
+        path: '/stock/release'
       },
       {
         title: 'Disponíveis',
@@ -62,9 +38,31 @@ const routes = [
         ]
       },
       {
-        title: 'Liberar',
-        path: '/stock/release'
-      }
+        title: 'Produtos',
+        subRoutes: [
+          {
+            title: 'Novo',
+            path: '/products/new'
+          },
+          {
+            title: 'Listar',
+            path: '/products/list'
+          }
+        ]
+      },
+      {
+        title: 'Compras',
+        subRoutes: [
+          {
+            title: 'Nova',
+            path: '/orders/new'
+          },
+          {
+            title: 'Listar',
+            path: '/orders/list'
+          }
+        ]
+      },
     ]
   }
 ]
