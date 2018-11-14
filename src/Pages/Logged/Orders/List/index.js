@@ -29,7 +29,7 @@ class OrderList extends Component {
           </Link>
       </div>
       <div className="ordersListContent">
-        <OrderListContainer orders={this.state.orders.data} />)
+        <OrderListContainer orders={this.state.orders.data} />
       </div>
     </div>
     )
