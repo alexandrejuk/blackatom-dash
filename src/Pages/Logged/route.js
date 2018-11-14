@@ -8,8 +8,22 @@ const routes = [
         path: '/products/new'
       },
       {
-        title: 'Lista',
+        title: 'Listar',
         path: '/products/list'
+      }
+    ]
+  },
+  {
+    title: 'Compras',
+    iconType: 'shopping-cart',
+    subRoutes: [
+      {
+        title: 'Nova',
+        path: '/orders/new'
+      },
+      {
+        title: 'Listar',
+        path: '/orders/list'
       }
     ]
   }
