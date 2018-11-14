@@ -32,20 +32,12 @@ const columns = [
 class ProductList extends Component {
   state = {
     bordered: false,
-    loading: false,
-    expandedRowRender: false,
     pagination: false,
-    size: 'default',
-    title: undefined,
-    rowSelection: false,
-    scroll: undefined,
-    hasData: true,
   }
 
   render() {
-    const { hasData } = this.state
     const { orderProducts } = this.props
-    return (<Table {...this.state} columns={columns} dataSource={hasData ? orderProducts : null} />)
+    return (<Table {...this.state} columns={columns} dataSource={orderProducts} />)
   }
 }
 

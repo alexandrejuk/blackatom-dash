@@ -52,13 +52,20 @@ class OrderList extends Component {
 
           <Row gutter={16}>
             <Col className="gutter-row" span={6}>
-              <span className="spanTitle">Status : <span>{order.status}</span></span>
+              <span className="spanTitle">Estoque： <span>
+                {
+                  order.stockLocation && order.stockLocation.name ? order.stockLocation.name : ''
+                }
+              </span></span>
             </Col>
-            <Col className="gutter-row" span={5}>
+            <Col className="gutter-row" span={6}>
+              <span className="spanTitle">Status: <span>{order.status}</span></span>
+            </Col>
+            <Col className="gutter-row" span={6}>
               <span className="spanTitle">Aberto Por： <span>Alexandre S.</span> </span>
             </Col>
-            <Col className="gutter-row" span={12}>
-              <span className="spanTitle">Aberto Por： <span>{order.createdAt} ~ {order.updatedAt}</span></span>
+            <Col className="gutter-row" span={6}>
+              <span className="spanTitle">Criado Em： <span>{order.createdAt}</span></span>
             </Col>
           </Row>
           <Row className="orderProducts">
@@ -75,6 +82,7 @@ class OrderList extends Component {
             <Alert type="error" message="Compra Cancelada" banner />
           }
         </div>
+        {JSON.stringify( )}
       </div>
     )
   }
