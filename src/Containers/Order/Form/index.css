@@ -1,0 +1,13 @@
+.titleOrderProducts {
+  padding-top: 30px;
+  margin: 30px 0;
+  border-top: 1px solid #e1e1e1;
+}
+.tableProducts {
+  margin-top: 25px;
+  font-weight: bold;
+}
+
+.buttonSubmit {
+  margin-top: 20px;
+}
