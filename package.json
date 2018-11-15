@@ -4,10 +4,14 @@
   "private": true,
   "dependencies": {
     "antd": "^3.10.4",
+    "axios": "^0.18.0",
     "babel-plugin-import": "^1.11.0",
+    "classnames": "^2.2.6",
+    "ramda": "^0.25.0",
     "react": "^16.6.1",
     "react-app-rewired": "^1.6.2",
     "react-dom": "^16.6.1",
+    "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1"
   },
   "scripts": {
@@ -21,6 +25,9 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>src/setupTests.js"
+  },
   "browserslist": [
     ">0.2%",
     "not dead",
@@ -28,11 +35,14 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@storybook/react": "^4.0.4",
+    "@babel/core": "^7.1.5",
     "@storybook/addon-actions": "^4.0.4",
     "@storybook/addon-links": "^4.0.4",
     "@storybook/addons": "^4.0.4",
-    "@babel/core": "^7.1.5",
-    "babel-loader": "^8.0.4"
+    "@storybook/react": "^4.0.4",
+    "babel-loader": "^8.0.4",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.7.0",
+    "react-test-renderer": "^16.6.1"
   }
 }

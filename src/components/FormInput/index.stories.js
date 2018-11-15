@@ -2,7 +2,7 @@ import React from 'react';
 
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import NewProduct from '.'
+import FormInput from '.'
 
-storiesOf('New Product', module)
-  .add('new', () => <NewProduct  />)
+storiesOf('New Form', module)
+  .add('new', () => <FormInput label="Name" type="text" />)
