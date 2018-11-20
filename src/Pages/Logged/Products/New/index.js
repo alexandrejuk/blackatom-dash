@@ -33,8 +33,7 @@ class NewProduct extends Component {
     return (
       <div className="wrapperNewProduct">
         <h1 className="newProductTitle">Cadastrar Novo Produto</h1>
-        <ProductForm actionLabel="Salvar" onSubmit={this.handleOnSubmit}/>
-       
+        <ProductForm actionLabel="Salvar" onSubmit={this.handleOnSubmit}/>    
       </div>
     )
   }
