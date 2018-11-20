@@ -76,7 +76,7 @@ class OrderProductForm extends Component {
               {getFieldDecorator('quantity', {
                 rules: [{ required: true, message: 'Preecha a quantidade do produto!' }],
               })(
-                <InputNumber style={{ width: 100 }} min={1} max={10} defaultValue={3}/>
+                <InputNumber style={{ width: 100 }} min={1} max={99999} defaultValue={3}/>
               )}
             </FormItem>
 

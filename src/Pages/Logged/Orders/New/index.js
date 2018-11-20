@@ -28,6 +28,19 @@ class NewOrder extends Component {
     this.setState({ stockLocations })
   }
 
+  async saveOrder (order) {
+    const formattedOrder = {
+      ...order,
+      orderProducts: order.orderProducts
+        .map(item => ({
+          quantity: item.quantity,
+          productId: item.product.id,
+        }))
+    }
+
+    console.log(formattedOrder)
+  }
+
   render() { 
     return (
       <div>
@@ -36,6 +49,7 @@ class NewOrder extends Component {
           products={this.state.products} 
           stockLocations={this.state.stockLocations} 
           actionLabel="Salvar"
+          onSubmit={this.saveOrder}
         />
       </div>
     )
