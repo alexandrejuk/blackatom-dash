@@ -1,12 +1,25 @@
 import React, { Component } from 'react'
+import  { Redirect } from 'react-router-dom'
+import { message } from 'antd'
+
 import NewOrderContainers from '../../../../Containers/Order/Form'
+
 import productService from '../../../../services/products'
 import stockLocationService from '../../../../services/stockLocation'
+import orderService from '../../../../services/orders'
+
+const error = () => {
+  message.error('Não foi possível cadastrar o produto!')
+}
 
 class NewOrder extends Component {
   state = {
     products: [],
     stockLocations: [],
+    redirectPage: {
+      redirect: false, 
+      orderId: null,
+    },
   }
 
   componentDidMount() {
@@ -28,9 +41,10 @@ class NewOrder extends Component {
     this.setState({ stockLocations })
   }
 
-  async saveOrder (order) {
+  saveOrder = async(order) => {
     const formattedOrder = {
       ...order,
+      stockLocationId: order.stockLocation,
       orderProducts: order.orderProducts
         .map(item => ({
           quantity: item.quantity,
@@ -38,7 +52,27 @@ class NewOrder extends Component {
         }))
     }
 
-    console.log(formattedOrder)
+    try {
+      await orderService.addOrder(formattedOrder)
+        .then(response => {
+          this.setState({ 
+            redirectPage: { 
+              redirect: true, 
+              orderId: response.data.id
+            }
+          })
+        })
+    } catch (err) {
+      error()
+    }
+  }
+
+
+  renderRedirect = () => {
+    const { redirect, orderId } = this.state.redirectPage
+    if(redirect) {
+      return <Redirect to={`/orders/detail/${orderId}`} />
+    }
   }
 
   render() { 
@@ -51,6 +85,7 @@ class NewOrder extends Component {
           actionLabel="Salvar"
           onSubmit={this.saveOrder}
         />
+        { this.renderRedirect() }
       </div>
     )
   }

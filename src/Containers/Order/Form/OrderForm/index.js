@@ -50,7 +50,7 @@ class OrderForm extends Component {
                     location =>
                       <Option 
                         key={location.id} 
-                        value={location.name}>
+                        value={location.id}>
                           {location.name}
                       </Option>
                   )
