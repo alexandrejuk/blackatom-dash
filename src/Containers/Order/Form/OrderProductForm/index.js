@@ -54,6 +54,7 @@ class OrderProductForm extends Component {
 
             <FormItem label="Nome do Produto">
               {getFieldDecorator('product', {
+                initialValue: '',
                 rules: [{ required: true, message: 'Preecha o nome do produto!' }],
               })(
                 <AutoComplete
@@ -74,9 +75,10 @@ class OrderProductForm extends Component {
         
             <FormItem label="Quantidade">
               {getFieldDecorator('quantity', {
+                initialValue: 1,
                 rules: [{ required: true, message: 'Preecha a quantidade do produto!' }],
               })(
-                <InputNumber style={{ width: 100 }} min={1} max={10} defaultValue={3}/>
+                <InputNumber style={{ width: 100 }} min={1} max={999999999} defaultValue={3}/>
               )}
             </FormItem>
 

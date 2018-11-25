@@ -78,6 +78,7 @@ class NewProduct extends React.Component {
           wrapperCol={{ span: 12 }}
         >
           {getFieldDecorator('hasSerialNumber', {
+            initialValue: false,
             valuePropName: 'checked',
             rules: [{ required: true, message: 'Esse produto tem serial number?' }],
           })(

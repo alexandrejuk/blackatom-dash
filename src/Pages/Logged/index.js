@@ -49,7 +49,6 @@ class Logged extends Component {
               }}
           >
             <Switch>
-              <Route exact path="/" component={Home}/>
               <Route path="/products" component={Products}/>
               <Route path="/orders" component={Orders}/>
               <Route path="/stock" component={Stock}/>
