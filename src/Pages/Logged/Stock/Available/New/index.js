@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import './index.css'
-import NewIndividualProduct from '../../../../../Containers/IndividualProduct/Form'
 
 class NewProductAvailable extends Component {
   state = {
@@ -19,7 +18,6 @@ class NewProductAvailable extends Component {
     return (
       <div className="wrapperNewProductAvailable">
         <h1 className="newProductAvailableTitle">Cadastrar N. Serial</h1>
-        <NewIndividualProduct />
       </div>
     )
   }
