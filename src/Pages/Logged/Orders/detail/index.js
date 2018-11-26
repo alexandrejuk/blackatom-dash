@@ -68,6 +68,7 @@ class OrderList extends Component {
       await individualProductService
         .addManyProductsSerialNumber(individualProductData)
         this.setState({ productModal: null, serialNumbersText: '' })
+        this.getOrder()
     } catch (error) {
       console.log(error)
     }    
