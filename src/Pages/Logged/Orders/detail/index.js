@@ -7,10 +7,19 @@ import iconCheck from '../../../../assets/icon/checked.svg'
 import iconCancell from '../../../../assets/icon/delete.svg'
 import { uniqWith, eqBy } from 'ramda'
 
-import { Col, Row, Button, Alert, Modal, Input } from 'antd'
+import { Col, Row, Button, Alert, Modal, Input, message } from 'antd'
 import ProductList from '../../../../Containers/Order/ProductList'
 
 const TextArea = Input.TextArea
+
+const success = (msg) => {
+  message.success('Número(s) serial(s) adicionado(s) com sucesso!')
+}
+
+const error = (msg) => {
+  message.error(msg)
+}
+
 
 class OrderList extends Component {
   state = { 
@@ -64,13 +73,21 @@ class OrderList extends Component {
       stockLocationId: this.state.order.stockLocationId,
       serialNumbers: this.getSerialNumbers()
     }
+
     try {
+
+      if (individualProductData.serialNumbers.length > this.state.productModal.unregisteredQuantity) {
+        throw new Error()
+      }
+
       await individualProductService
         .addManyProductsSerialNumber(individualProductData)
-        this.setState({ productModal: null, serialNumbersText: '' })
-        this.getOrder()
-    } catch (error) {
-      console.log(error)
+      
+      this.setState({ productModal: null, serialNumbersText: '' })
+      this.getOrder()
+      success()
+    } catch (err) {
+      error('Verifique a quantidade e os números serial(s), e tente novamente!')
     }    
   }
 
@@ -142,7 +159,7 @@ class OrderList extends Component {
           <Row className="orderProducts">
             <Col>
               <span className="productsOrderTitle">PRODUTOS DA COMPRA</span>
-              <ProductList orderProducts={order.orderProducts} onClick={this.showModal}/>
+              <ProductList orderProducts={order.orderProducts} onClick={this.showModal} orderStatus={order.status}/>
             </Col>
           </Row>
         </div>

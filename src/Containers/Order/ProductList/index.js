@@ -28,7 +28,7 @@ class ProductList extends Component {
       dataIndex: 'id',
       key: 'action',
       render: (t, record) =>   
-      record.unregisteredQuantity > 0 ? 
+      record.unregisteredQuantity > 0 && this.props.orderStatus === 'REGISTERED' ? 
         <Button onClick={() => this.props.onClick(record)}>Adicionar Serial</Button> :
       ''
     }
