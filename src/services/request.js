@@ -1,5 +1,5 @@
 import axios from 'axios'
-const url = 'http://localhost:3003/api'
+const url = 'http://204.48.20.120:3003/api'
 
 const request = {
   get: (...data) => axios.get(...data).then(response => response.data),
