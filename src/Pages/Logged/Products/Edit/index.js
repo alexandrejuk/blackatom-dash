@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ProductForm from '../../../../Containers/Product/Form'
 import productService from '../../../../services/products'
+import './index.css'
 import { omit } from 'ramda'
 
 class EditProduct extends Component {
@@ -30,18 +31,19 @@ class EditProduct extends Component {
   }
 
   handleOnSubmit = async (values) => {
-    const updatedProduct = await productService.editProduct(this.state.product.id, values)
+    const updatedProduct = await productService.editProduct(this.state.product.id, values.serialNumber)
       .then(response => response.data)
     
     this.setForm(updatedProduct)
   }
 
   render() { 
-    return (<ProductForm
-      wrappedComponentRef={(form) => this.form = form}
-      actionLabel="Editar"
-      onSubmit={this.handleOnSubmit}
-    />)
+    return (
+      <div className="wrapperEditroduct">
+      <h1 className="editProductTitle">Editar Produto</h1>
+      <ProductForm wrappedComponentRef={(form) => this.form = form} actionLabel="Editar" onSubmit={this.handleOnSubmit}/> 
+    </div>
+    )
   }
 }
  

@@ -11,7 +11,17 @@ const individualProductList = () => {
   return axios.get(endpoint)
 }
 
+const getProductAvailableById = (id) => {
+  return axios.get(`${endpoint}/${id}`)
+}
+
+const editProductAvailable = (id, serialNumber) => {
+  return axios.put(`${endpoint}/${id}`, { serialNumber })
+}
+
 export default {
   addManyProductsSerialNumber,
   individualProductList,
+  getProductAvailableById,
+  editProductAvailable,
 }
