@@ -24,7 +24,7 @@ class OrderList extends Component {
     <div className="wrapperOrders">
       <div className="ordersListHeader">
         <h1>Gerenciar Compras</h1>
-          <Link className="linkNav" to={'/orders/new'}>
+          <Link className="linkNav" to={'/logged/orders/new'}>
             <Button  type="primary"> Nova </ Button>
           </Link>
       </div>

@@ -6,9 +6,9 @@ import OrderDetail from './detail'
 
 const Orders = () => (
   <Switch>
-    <Route path="/orders/new" component={NewOrder}/>
-    <Route path="/orders/list" component={OrderList}/>
-    <Route path="/orders/detail/:id" component={OrderDetail}/>
+    <Route path="/logged/orders/new" component={NewOrder}/>
+    <Route path="/logged/orders/list" component={OrderList}/>
+    <Route path="/logged/orders/detail/:id" component={OrderDetail}/>
   </Switch>
 )
  

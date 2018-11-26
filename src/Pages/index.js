@@ -6,7 +6,6 @@ import Logged from './Logged'
 
 const Pages = () => (
   <Switch>
-    <Route path="/" component={Auth}/>
     <Route path="/logged" component={Logged}/>
   </Switch>
 )

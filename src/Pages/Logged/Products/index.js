@@ -6,9 +6,9 @@ import ListProducts from './List'
 
 const Products = () => (
   <Switch>
-    <Route path="/products/new" component={NewProduct}/>
-    <Route path="/products/edit/:id" component={EditProduct}/>
-    <Route path="/products/list" component={ListProducts}/>
+    <Route path="/logged/products/new" component={NewProduct}/>
+    <Route path="/logged/products/edit/:id" component={EditProduct}/>
+    <Route path="/logged/products/list" component={ListProducts}/>
   </Switch>
 )
  

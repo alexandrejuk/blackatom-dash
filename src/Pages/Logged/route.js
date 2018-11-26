@@ -5,27 +5,27 @@ const routes = [
     subRoutes: [
       {
         title: 'Gerenciar',
-        path: '/stock/manager'
+        path: '/logged/stock/manager'
       },
       {
         title: 'Liberar',
-        path: '/stock/release'
+        path: '/logged/stock/release'
       },
       {
         title: 'Disponíveis',
-        path: '/stock/available/list'
+        path: '/logged/stock/available/list'
       },
       {
         title: 'Reservar',
-        path: '/stock/reserve/list'
+        path: '/logged/stock/reserve/list'
       },
       {
         title: 'Produtos',
-        path: '/products/list'
+        path: '/logged/products/list'
       },
       {
         title: 'Compras',
-        path: '/orders/list'
+        path: '/logged/orders/list'
       },
     ]
   }

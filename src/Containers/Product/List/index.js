@@ -33,7 +33,7 @@ const columns = [
     dataIndex: 'id',
     key: 'action',
     render: (id) => 
-      <Link className="linkNav" to={`/products/edit/${id}`}>
+      <Link className="linkNav" to={`/logged/products/edit/${id}`}>
         <Button>Editar</Button>
       </Link>
   }
