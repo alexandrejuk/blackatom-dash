@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom'
 
 import SideMenu from '../../Containers/SideMenu'
 
+// import Home from '../Home'
 import Products from  './Products'
 import Orders from './Orders'
 import Stock from './Stock'
