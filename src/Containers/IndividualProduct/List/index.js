@@ -16,7 +16,6 @@ class List extends Component {
       key: 'serialNumber',
       render: (serialNumber) => 
         <Tooltip placement="topLeft" title="Copiado!" trigger="focus">
-          <input type="hidden" value={serialNumber} id={serialNumber} />
           <Button className="buttonCopy" value={serialNumber} onClick={this.handleCopy}>
             <Icon type="copy" />
             {serialNumber}
