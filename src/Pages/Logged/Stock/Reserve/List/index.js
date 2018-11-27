@@ -15,7 +15,7 @@ class ReservedList extends Component {
       <div className="wrapperReserved">
         <div className="reservedListHeader">
           <h1>Gerenciar Reservas</h1>
-            <Link className="linkNav" to={'/logged/stock/available/new'}>
+            <Link className="linkNav" to={'/logged/stock/reserve/new'}>
               <Button  type="primary"> Nova </ Button>
             </Link>
         </div>
