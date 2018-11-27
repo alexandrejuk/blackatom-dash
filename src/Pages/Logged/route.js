@@ -20,7 +20,7 @@ const routes = [
         path: '/logged/products/list'
       },
       {
-        title: 'Reservar',
+        title: 'Reserva',
         path: '/logged/stock/reserve/list'
       },
     ]

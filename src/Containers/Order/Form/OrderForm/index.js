@@ -36,7 +36,7 @@ class OrderForm extends Component {
               <Select
                 showSearch
                 style={{ width: 200 }}
-                placeholder="Select a person"
+                placeholder="Selecione o estoque"
                 optionFilterProp="children"
                 filterOption={
                   (input, option) => 
