@@ -45,7 +45,7 @@ class NewOrder extends Component {
         <OrderForm wrappedComponentRef={(form) => this.orderFormRef = form} stockLocations={stockLocations} />
         <OrderProductForm wrappedComponentRef={(form) => this.productFormRef = form} products={products} onSubmit={this.handleProductsTable} />
         <OrderProductTable handleRemoveProduct={this.handleRemoveProduct} products={this.state.productsTable}/>
-        <Button type="primary" htmlType="submit" onClick={this.onSave}> Salvar </Button>
+        <Button className="buttonSubmitOrder" type="primary" htmlType="submit" onClick={this.onSave}> Salvar </Button>
       </div>
     )
   }

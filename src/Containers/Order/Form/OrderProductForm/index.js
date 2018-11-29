@@ -58,7 +58,7 @@ class OrderProductForm extends Component {
                 rules: [{ required: true, message: 'Preecha o nome do produto!' }],
               })(
                 <AutoComplete
-                  style={{ width: 300 }}
+                  style={{ width: 500 }}
                   onSelect={this.handleOnSelect}
                   onSearch={this.handleSearch}
                   placeholder="Buscar produto aqui"
@@ -83,7 +83,7 @@ class OrderProductForm extends Component {
             </FormItem>
 
             <FormItem>
-              <Button type="primary" htmlType="submit">+</Button> 
+              <Button htmlType="submit">Adicionar</Button> 
             </FormItem>
           </Form>
       </div>
