@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom'
 
 import SideMenu from '../../Containers/SideMenu'
 
-import Home from '../Home'
+// import Home from '../Home'
 import Products from  './Products'
 import Orders from './Orders'
 import Stock from './Stock'
@@ -49,9 +49,9 @@ class Logged extends Component {
               }}
           >
             <Switch>
-              <Route path="/products" component={Products}/>
-              <Route path="/orders" component={Orders}/>
-              <Route path="/stock" component={Stock}/>
+              <Route path="/logged/products" component={Products}/>
+              <Route path="/logged/orders" component={Orders}/>
+              <Route path="/logged/stock" component={Stock}/>
             </Switch>
           </Content>
           <Footer style={{ textAlign: 'center' }}>

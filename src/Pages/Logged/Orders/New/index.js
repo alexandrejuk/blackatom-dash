@@ -71,7 +71,7 @@ class NewOrder extends Component {
   renderRedirect = () => {
     const { redirect, orderId } = this.state.redirectPage
     if(redirect) {
-      return <Redirect to={`/orders/detail/${orderId}`} />
+      return <Redirect to={`/logged/orders/detail/${orderId}`} />
     }
   }
 

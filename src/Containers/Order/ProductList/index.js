@@ -1,33 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import { Button, Table } from 'antd';
-
-const columns = [
-  {
-    title: 'Descrição',
-    dataIndex: 'product.name',
-    key: 'product.name',
-  },
-  {
-    title: 'Quantidade',
-    dataIndex: 'quantity',
-    key: 'quantity',
-  },
-  {
-    title: 'Quantidade Pendente',
-    dataIndex: 'unregisteredQuantity',
-    key: 'unregisteredQuantity',
-  },
-  // {
-  //   title: 'Ações',
-  //   dataIndex: 'id',
-  //   key: 'action',
-  //   render: (id) => 
-  //     <Link className="linkNav" to={`/orders/detail/${id}`}>
-  //       <Button>Lançar</Button>
-  //     </Link>
-  // }
-]
 
 class ProductList extends Component {
   state = {
@@ -35,9 +7,36 @@ class ProductList extends Component {
     pagination: false,
   }
 
+  columns = [
+    {
+      title: 'Descrição',
+      dataIndex: 'product.name',
+      key: 'product.name',
+    },
+    {
+      title: 'Quantidade',
+      dataIndex: 'quantity',
+      key: 'quantity',
+    },
+    {
+      title: 'Quantidade Pendente',
+      dataIndex: 'unregisteredQuantity',
+      key: 'unregisteredQuantity',
+    },
+    {
+      title: 'Ações',
+      dataIndex: 'id',
+      key: 'action',
+      render: (t, record) =>   
+      record.unregisteredQuantity > 0 && this.props.orderStatus === 'REGISTERED' ? 
+        <Button onClick={() => this.props.onClick(record)}>Adicionar Serial</Button> :
+      ''
+    }
+  ]
+
   render() {
     const { orderProducts } = this.props
-    return (<Table {...this.state} columns={columns} dataSource={orderProducts} />)
+    return (<Table {...this.state} columns={this.columns} dataSource={orderProducts} />)
   }
 }
 

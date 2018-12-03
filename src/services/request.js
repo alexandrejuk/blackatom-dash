@@ -1,5 +1,6 @@
 import axios from 'axios'
-const url = 'http://localhost:3003/api'
+const HOST = process.env.REACT_APP_HOST
+const url = `http://${HOST}:3003/api`
 
 const request = {
   get: (...data) => axios.get(...data).then(response => response.data),

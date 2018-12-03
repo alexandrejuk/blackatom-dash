@@ -26,7 +26,7 @@ class ProductList extends Component {
       <div className="wrapperProducts">
         <div className="productListHeader">
           <h1>Gerenciar Produtos</h1>
-            <Link className="linkNav" to={'/products/new'}>
+            <Link className="linkNav" to={'/logged/products/new'}>
               <Button  type="primary"> Novo </ Button>
             </Link>
         </div>
