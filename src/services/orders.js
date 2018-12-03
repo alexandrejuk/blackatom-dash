@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const url = 'http://142.93.124.188:3003/api'
+const HOST = process.env.REACT_APP_HOST
+const url = `http://${HOST}:3003/api`
 const endpoint = `${url}/orders`
 
 const addOrder = (order) => {
