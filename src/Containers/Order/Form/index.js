@@ -4,35 +4,35 @@ import './index.css'
 
 import OrderForm from './OrderForm'
 import OrderProductForm  from './OrderProductForm'
-import OrderProductTable from './OrderProductTable'
+import OrderProductList from './OrderProductList'
 
 class NewOrder extends Component {
   orderFormRef = null
   productFormRef = null
 
   state = {
-    productsTable: []
+    productList: []
   }
 
   handleProductsTable = (value) => {
     this.setState({
-      productsTable: [...this.state.productsTable, value]
+      productList: [...this.state.productList, value]
     })
     this.productFormRef.props.form.resetFields()
   }
 
   handleRemoveProduct = (index) => {
-    const productsTable = this.state.productsTable.filter((_, i) => index !== i)
+    const productList = this.state.productList.filter((_, i) => index !== i)
 
-    this.setState({ productsTable })
+    this.setState({ productList })
   }
 
   onSave = () => {
     this.orderFormRef.props.form.validateFields((err, values) => {
-      if (!err && this.state.productsTable.length > 0) {
+      if (!err && this.state.productList.length > 0) {
         this.props.onSubmit({
           ...values,
-          orderProducts: this.state.productsTable,
+          orderProducts: this.state.productList,
         })
       }
     });
@@ -44,7 +44,7 @@ class NewOrder extends Component {
       <div>
         <OrderForm wrappedComponentRef={(form) => this.orderFormRef = form} stockLocations={stockLocations} />
         <OrderProductForm wrappedComponentRef={(form) => this.productFormRef = form} products={products} onSubmit={this.handleProductsTable} />
-        <OrderProductTable handleRemoveProduct={this.handleRemoveProduct} products={this.state.productsTable}/>
+        <OrderProductList handleRemoveProduct={this.handleRemoveProduct} products={this.state.productList}/>
         <Button className="buttonSubmitOrder" type="primary" htmlType="submit" onClick={this.onSave}> Salvar </Button>
       </div>
     )
