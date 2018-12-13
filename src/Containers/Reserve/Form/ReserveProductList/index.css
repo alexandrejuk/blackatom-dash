@@ -1,0 +1,48 @@
+.sectionLabelReserve {
+	margin: 20px auto 20px auto;
+}
+.product-reserve {
+	border: none;
+}
+.card-product-reserve {
+	border-top: 1px solid rgba(0,0,0,0.1);
+	display: flex;
+	padding: 14px 0;
+	width: 100%;
+}
+.card-content, 
+.card-content-quantity,
+.card-content-button {
+	width: calc(100%/3)
+}
+
+.card-content-quantity {
+	display: flex;
+	justify-content: center;
+	align-content: center;
+}
+.card-content-button {
+	display: flex;
+	justify-content: flex-end;
+	align-content: center;
+}
+.no-margin {
+	margin: 0;
+}
+.title-card {
+	color: #333;
+	font-family: Arial;
+	font-weight: bold;
+}
+.subtitle-card {
+	color: rgb(148, 148, 148)
+}
+.buttonRemoveItem {
+	background: transparent !important;
+}
+.buttonRemoveItem:focus {
+	color: #f5222d !important;
+}
+.buttonRemoveItem:hover {
+	color: #f5222d !important;
+}
