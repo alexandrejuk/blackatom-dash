@@ -5,7 +5,7 @@ const FormItem = Form.Item
 
 class ReserveProductForm extends Component {
     render() { 
-      const { form: { getFieldDecorator }, stockLocations  } = this.props
+      const { form: { getFieldDecorator }, stockLocations, handleGetCustomerByCnpj  } = this.props
 			return (  
 				<div className="wrapperNewReserve">
         <h1>Criar Nova Reserva</h1>
@@ -23,7 +23,7 @@ class ReserveProductForm extends Component {
                     message: 'Preecha o cnpj!'
                   }]
                 }
-              )(<Input style={{ width: 200 }} />)
+              )(<Input style={{ width: 200 }} onBlur={(e) => handleGetCustomerByCnpj(e.target.value)}/>)
             }
           </FormItem>
           <FormItem label="Razão Social">
@@ -42,20 +42,35 @@ class ReserveProductForm extends Component {
           <div className="sectionLabel">
             <h3>Estoque</h3>
           </div>
-          <FormItem  label="Selecione o Estoque">
-            <Radio.Group buttonStyle="solid">
+
+               <FormItem label="Estoque">
+          {
+            getFieldDecorator(
+              'stockLocationId',
               {
-                stockLocations.map(
+                rules: [{
+                  required: true,
+                  message: 'Selecione o estoque da compra!'
+                }]
+              }
+            )(
+              <Radio.Group buttonStyle="solid">
+      
+                {
+                 stockLocations.map(
                   location =>
                   <Radio.Button 
                     key={location.id} 
                     value={location.id}>
                       {location.name}
                   </Radio.Button>
-                )
-              }
-            </Radio.Group>
-          </FormItem>
+                 )
+                }
+
+              </Radio.Group >
+            )
+          }
+        </FormItem>
   
         </Form>
 

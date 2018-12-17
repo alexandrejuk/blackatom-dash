@@ -26,18 +26,29 @@ class NewReserve extends Component {
     this.setState({ productList })
   }
 
+  onSave = () => {
+    this.reserveFormRef.props.form.validateFields((err, values) => {
+      if (!err && this.state.productList.length > 0) {
+        this.props.onSubmit({
+          ...values,
+          reserveProducts: this.state.productList,
+        })
+      }
+    });
+  }
+
   render() {
-    const { stockLocations, products } = this.props
+    const { stockLocations, products, handleGetCustomerByCnpj } = this.props
     return (
       <div>
-        <ReserveForm wrappedComponentRef={(form) => this.reserveFormRef = form} stockLocations={stockLocations} />
+        <ReserveForm handleGetCustomerByCnpj={handleGetCustomerByCnpj} wrappedComponentRef={(form) => this.reserveFormRef = form} stockLocations={stockLocations} />
         <ReserveProductForm 
           wrappedComponentRef={(form) => this.productFormRef = form} 
           products={products}
           onSubmit={this.handleAddProductList}
         />
         <ReserveProductList handleRemoveProduct={this.handleRemoveProduct} products={this.state.productList}/>
-        <Button className="buttonSubmitReserve" type="primary" htmlType="submit"> Salvar </Button>
+        <Button className="buttonSubmitReserve" type="primary" onClick={this.onSave} htmlType="submit"> Salvar </Button>
       </div>
     )
   }
