@@ -25,9 +25,10 @@ class NewReserve extends Component {
     const cnpj =  removeMask(value)
     const customer = await customerService
       .getCustomerByCnpj(cnpj)
-      .then(response => console.log(response))
-    // this.setState({ customer })
+      .then(response => response.data)
+    this.setState({ customer })
   }
+
 
   async getProducts() {
     const products = await productService
@@ -44,8 +45,10 @@ class NewReserve extends Component {
 
   saveReserve = async(reserve) => {
     const formattedReserve = {
-      ...reserve,
-      reserveProducts: reserve.reserveProducts
+      stockLocationId: reserve.stockLocationId,
+      socialName: reserve.socialName,
+      cnpj: reserve.cnpj,
+      items: reserve.reserveProducts
         .map(item => ({
           quantity: item.quantity,
           productId: item.product.id,
@@ -64,6 +67,7 @@ class NewReserve extends Component {
       <NewReserveContainer
         handleGetCustomerByCnpj={this.handleGetCustomerByCnpj}
         products={this.state.products} 
+        customer={this.state.customer}
         stockLocations={this.state.stockLocations}
         onSubmit={this.saveReserve}
       />

@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const HOST = process.env.REACT_APP_HOST
-const url = `http://${HOST}:3003/api`
+const url = `http://${HOST}:3003/api/individual-products`
 
 const addManyProductsSerialNumber = (productsSerialNumber) => {
   return axios.post(url, productsSerialNumber)

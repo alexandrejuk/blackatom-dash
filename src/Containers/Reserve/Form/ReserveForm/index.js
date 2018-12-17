@@ -5,7 +5,7 @@ const FormItem = Form.Item
 
 class ReserveProductForm extends Component {
     render() { 
-      const { form: { getFieldDecorator }, stockLocations, handleGetCustomerByCnpj  } = this.props
+      const { form: { getFieldDecorator }, stockLocations, handleGetCustomerByCnpj, customer  } = this.props
 			return (  
 				<div className="wrapperNewReserve">
         <h1>Criar Nova Reserva</h1>
@@ -36,7 +36,7 @@ class ReserveProductForm extends Component {
                   message: 'Preecha a razão social!'
                 }]
               }
-            )(<Input style={{ width: 500 }} />)
+            )(<Input style={{ width: 500 }}/>)
           }
           </FormItem>
           <div className="sectionLabel">
