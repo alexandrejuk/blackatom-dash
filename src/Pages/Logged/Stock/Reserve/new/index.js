@@ -3,6 +3,7 @@ import './index.css'
 
 import NewReserveContainer from '../../../../../Containers/Reserve/Form'
 
+import callService from '../../../../../services/call'
 import customerService from '../../../../../services/customer'
 import productService from '../../../../../services/products'
 import stockLocationService from '../../../../../services/stockLocation'
@@ -14,7 +15,8 @@ class NewReserve extends Component {
   state = {
     customer: {},
     stockLocations: [],
-    products: []
+    products: [],
+    listCalls: [],
   }
   componentDidMount() {
     this.getProducts()
@@ -22,13 +24,18 @@ class NewReserve extends Component {
   }
 
   handleGetCustomerByCnpj = async (value) => {
-    const cnpj =  removeMask(value)
+    const documentId =  removeMask(value)
     const customer = await customerService
-      .getCustomerByCnpj(cnpj)
+      .getCustomerByCnpj(documentId)
       .then(response => response.data)
     this.setState({ customer })
+    this.getListCall(documentId)
   }
 
+  async getListCall(documentId) {
+    const { data: { atendimentos: listCalls }} = await callService.getListCallByCnpj(documentId)
+    this.setState({ listCalls })
+  }
 
   async getProducts() {
     const products = await productService
@@ -36,6 +43,7 @@ class NewReserve extends Component {
       .then(response => response.data)
     this.setState({ products })
   }
+
   async getStockLocations() {
     const stockLocations = await stockLocationService
       .getStockLocations()
@@ -46,8 +54,8 @@ class NewReserve extends Component {
   saveReserve = async(reserve) => {
     const formattedReserve = {
       stockLocationId: reserve.stockLocationId,
-      socialName: reserve.socialName,
-      cnpj: reserve.cnpj,
+      customerId: this.state.customer.id,
+      reservedAt: new Date(),
       items: reserve.reserveProducts
         .map(item => ({
           quantity: item.quantity,
@@ -68,6 +76,7 @@ class NewReserve extends Component {
         handleGetCustomerByCnpj={this.handleGetCustomerByCnpj}
         products={this.state.products} 
         customer={this.state.customer}
+        listCalls={this.state.listCalls}
         stockLocations={this.state.stockLocations}
         onSubmit={this.saveReserve}
       />

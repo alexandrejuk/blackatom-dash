@@ -1,0 +1,18 @@
+.info-label {
+  font-weight: bold;
+}
+
+.content-calls {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.call {
+  margin-top: 14px;
+  width: 50%
+}
+
+.size-100 {
+  width: 100%
+}

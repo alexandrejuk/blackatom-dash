@@ -30,7 +30,8 @@ class OrderForm extends Component {
                 rules: [{
                   required: true,
                   message: 'Selecione o estoque da compra!'
-                }]
+                }],
+                initialValue: ''
               }
             )(
               <Select
