@@ -4,15 +4,20 @@
 
 .content-calls {
   display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  cursor: pointer;
 }
 
 .call {
   margin-top: 14px;
-  width: 50%
 }
 
-.size-100 {
-  width: 100%
+.info-icon {
+  background: #4bae4f;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  padding: 10px;
+  color: #fff;
+  border-radius: 0 3px;
 }

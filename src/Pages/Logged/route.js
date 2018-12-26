@@ -23,6 +23,10 @@ const routes = [
         title: 'Reserva',
         path: '/logged/stock/reserve/list'
       },
+      {
+        title: 'Liberar',
+        path: '/logged/stock/release/list'
+      },
     ]
   }
 ]

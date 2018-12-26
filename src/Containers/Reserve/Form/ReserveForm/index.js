@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import { Radio, Form, Input, Modal, Button, Collapse } from 'antd'
+import { Radio, Form, Input, Modal, Button, Collapse, Icon } from 'antd'
 import './index.css'
 const FormItem = Form.Item
 const Panel = Collapse.Panel;
 
 class ReserveProductForm extends Component {
   state = {
-    visible: false
+    visible: false,
+    callSelected: {}
   }
 
   componentWillReceiveProps(props) {
@@ -29,6 +30,10 @@ class ReserveProductForm extends Component {
     this.setState({ visible: false })
   }
 
+  handleSelected = (callSelected) => {
+    this.setState({ callSelected })
+  }
+  
   renderModal = () => {
     return (
       <Modal
@@ -47,21 +52,29 @@ class ReserveProductForm extends Component {
           this.props.listCalls.map(item =>(
           <Panel header={`Tipo: ${item.tipo} - Data Atendimento: ${item.data_atendimento}`} key={item.id}>
             <div className="content-calls">
-              <div className="call size-100">
-                <span className="info-label">Tecnico:</span> {item.tecnico.nome ? item.tecnico.name : 'Atendimento não está associado!'}
-              </div>
+              <div className="info-call" onClick={() => this.handleSelected(item)}>
+                <div className="call">
+                  <span className="info-label">Tecnico:</span> {item.tecnico.nome ? item.tecnico.nome : 'Atendimento não está associado!'}
+                </div>
 
-              <div className="call size-100">
-                <span className="info-label">Modelo Do Equipamento:</span> {item.modelo_equipamento}
-              </div>
+                <div className="call">
+                  <span className="info-label">Modelo Do Equipamento:</span> {item.modelo_equipamento}
+                </div>
 
-              <div className="call size-100">
-                <span className="info-label">Descrição:</span> {item.descricao}
-              </div>
+                <div className="call">
+                  <span className="info-label">Descrição:</span> {item.descricao}
+                </div>
 
-              <div className="call size-100">
-                <span className="info-label">Observação:</span> {item.observacao}
+                <div className="call">
+                  <span className="info-label">Observação:</span> {item.observacao}
+                </div>
               </div>
+                { this.state.callSelected._id === item._id ? 
+                  <div className="info-icon">
+                    <Icon type="check" />
+                  </div> : ''
+                }
+              
 
             </div>
          </Panel>))

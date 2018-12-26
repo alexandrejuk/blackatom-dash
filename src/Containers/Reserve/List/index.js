@@ -4,9 +4,9 @@ import { Button, Table } from 'antd';
 
 const columns = [
   {
-    title: 'Descrição',
-    dataIndex: 'description',
-    key: 'description',
+    title: 'Cliente',
+    dataIndex: 'customer.name',
+    key: 'customer.id',
   },
   {
     title: 'Status',

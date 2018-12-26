@@ -56,7 +56,7 @@ class NewReserve extends Component {
       stockLocationId: reserve.stockLocationId,
       customerId: this.state.customer.id,
       reservedAt: new Date(),
-      items: reserve.reserveProducts
+      products: reserve.products
         .map(item => ({
           quantity: item.quantity,
           productId: item.product.id,

@@ -31,7 +31,7 @@ class NewReserve extends Component {
       if (!err && this.state.productList.length > 0) {
         this.props.onSubmit({
           ...values,
-          reserveProducts: this.state.productList,
+          products: this.state.productList,
         })
       }
     });
