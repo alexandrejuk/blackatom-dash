@@ -25,7 +25,7 @@ const columns = [
     dataIndex: 'id',
     key: 'action',
     render: (id) => 
-      <Link className="linkNav" to={`/logged/orders/detail/${id}`}>
+      <Link className="linkNav" to={`/logged/stock/reserve/edit/${id}`}>
         <Button>Detalhes</Button>
       </Link>
   }

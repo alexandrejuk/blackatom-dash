@@ -8,6 +8,16 @@ const addReserve = (order) => {
   return axios.post(endpoint, order)
 }
 
+const getAll = () => {
+  return axios.get(endpoint)
+}
+
+const getById = (id) => {
+  return axios.get(`${endpoint}/${id}`)
+}
+
 export default {
   addReserve,
+  getAll,
+  getById,
 }

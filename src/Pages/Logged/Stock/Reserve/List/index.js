@@ -2,12 +2,19 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from 'antd'
 import ListContainerReserve from '../../../../../Containers/Reserve/List'
+import reserveService from '../../../../../services/reserve'
 
 import './index.css'
 
 class ReservedList extends Component {
   state = { 
     reservedList: []
+  }
+
+  async componentDidMount(){
+    const { data: reservedList } = await reserveService.getAll()
+    
+    this.setState({ reservedList })
   }
 
   render() { 
