@@ -10,7 +10,8 @@ class NewReserve extends Component {
   productFormRef = null
 
   state = {
-    productList: []
+    productList: [],
+    originId: null,
   }
 
   handleAddProductList = (value) => {
@@ -32,16 +33,28 @@ class NewReserve extends Component {
         this.props.onSubmit({
           ...values,
           products: this.state.productList,
+          originId: this.state.originId
         })
       }
     });
   }
 
+  handleOriginIdSelected = (originId) => {
+    this.setState({ originId })
+  }
+  
   render() {
     const { stockLocations, products, handleGetCustomerByCnpj, customer, listCalls } = this.props
     return (
       <div>
-        <ReserveForm listCalls={listCalls} customer={customer} handleGetCustomerByCnpj={handleGetCustomerByCnpj} wrappedComponentRef={(form) => this.reserveFormRef = form} stockLocations={stockLocations} />
+        <ReserveForm 
+          listCalls={listCalls} 
+          customer={customer} 
+          handleGetCustomerByCnpj={handleGetCustomerByCnpj} 
+          wrappedComponentRef={(form) => this.reserveFormRef = form} 
+          stockLocations={stockLocations} 
+          handleOriginIdSelected={this.handleOriginIdSelected}
+        />
         <ReserveProductForm 
           wrappedComponentRef={(form) => this.productFormRef = form} 
           products={products}

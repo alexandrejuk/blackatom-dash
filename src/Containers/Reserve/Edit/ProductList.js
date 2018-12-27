@@ -7,6 +7,10 @@ const columns = [
     dataIndex: 'product.name',
   },
   {
+    title: 'N.  Série',
+    dataIndex: 'individualProduct.serialNumber',
+  },
+  {
     title: 'Quantidade Reservada',
     dataIndex: 'quantity',
   },

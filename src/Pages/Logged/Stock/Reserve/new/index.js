@@ -56,6 +56,8 @@ class NewReserve extends Component {
       stockLocationId: reserve.stockLocationId,
       customerId: this.state.customer.id,
       reservedAt: new Date(),
+      originId: reserve.originId,
+      originType: reserve.originType,
       products: reserve.products
         .map(item => ({
           quantity: item.quantity,

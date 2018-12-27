@@ -1,6 +1,5 @@
 import React from 'react'
 import ProductList from './ProductList'
-import IndividualProductList from './IndividualProductList'
 
 
 const ReservationEdit  = ({
@@ -8,7 +7,6 @@ const ReservationEdit  = ({
   loading
 }) => <div>
   <ProductList products={reservation.products}/>
-  <IndividualProductList products={reservation.individualProducts}/>
 </div>
 
 export default ReservationEdit
