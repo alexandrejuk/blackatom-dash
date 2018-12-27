@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import { Radio, Form, Input, Modal, Button, Collapse, Icon } from 'antd'
 import './index.css'
+import { equals } from 'ramda'
+
 const FormItem = Form.Item
 const Panel = Collapse.Panel;
 
 class ReserveProductForm extends Component {
   state = {
     visible: false,
-    callSelected: {}
+    callSelected: null,
   }
 
   componentWillReceiveProps(props) {
@@ -30,8 +32,15 @@ class ReserveProductForm extends Component {
     this.setState({ visible: false })
   }
 
-  handleSelected = (callSelected) => {
-    this.setState({ callSelected })
+  handleSelected = (callSelected) => {  
+    if(this.state.callSelected === null) {
+      return this.setState({ callSelected })
+    }
+    if(!equals(this.state.callSelected, callSelected)) {
+      return this.setState({ callSelected })
+    }else {
+      this.setState({ callSelected: null })
+    }
   }
   
   renderModal = () => {
@@ -51,8 +60,8 @@ class ReserveProductForm extends Component {
         {
           this.props.listCalls.map(item =>(
           <Panel header={`Tipo: ${item.tipo} - Data Atendimento: ${item.data_atendimento}`} key={item.id}>
-            <div className="content-calls">
-              <div className="info-call" onClick={() => this.handleSelected(item)}>
+            <div className="content-calls" onClick={() => this.handleSelected(item)}>
+              <div className="info-call">
                 <div className="call">
                   <span className="info-label">Tecnico:</span> {item.tecnico.nome ? item.tecnico.nome : 'Atendimento não está associado!'}
                 </div>
@@ -69,7 +78,7 @@ class ReserveProductForm extends Component {
                   <span className="info-label">Observação:</span> {item.observacao}
                 </div>
               </div>
-                { this.state.callSelected._id === item._id ? 
+                { this.state.callSelected && this.state.callSelected._id === item._id ? 
                   <div className="info-icon">
                     <Icon type="check" />
                   </div> : ''
