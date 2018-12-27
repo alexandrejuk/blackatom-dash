@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Radio, Form, Input, Modal, Button, Collapse, Icon } from 'antd'
 import './index.css'
 import { equals } from 'ramda'
+import moment from 'moment'
 
 const FormItem = Form.Item
 const Panel = Collapse.Panel;
@@ -67,7 +68,7 @@ class ReserveProductForm extends Component {
       <Collapse bordered={false} >
         {
           this.props.listCalls.map(item =>(
-          <Panel header={`Tipo: ${item.tipo} - Data Atendimento: ${item.data_atendimento}`} key={item.id}>
+          <Panel header={`Tipo: ${item.tipo} - Data Atendimento: ${moment(item.data_atendimento).format('DD/MM/YYYY')}`} key={item.id}>
             <div className="content-calls" onClick={() => this.handleSelected(item)}>
               <div className="info-call">
                 <div className="call">

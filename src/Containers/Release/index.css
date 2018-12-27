@@ -1,0 +1,19 @@
+.wrapperRelease {
+	text-align: center;
+}
+.sliderWrapper {
+	margin: 14px auto;	
+	width: 70%;
+}
+.textNumberInput {
+	font-size: 3em;
+	font-weight: bold;
+	margin: 0;
+}
+.subtitleRelease, .titleRelease {
+	margin: 0 0 0 10px;
+	padding: 0;
+}
+.footerRelease {
+	margin-top: 20px;
+}

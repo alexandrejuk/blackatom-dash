@@ -25,7 +25,7 @@ const routes = [
       },
       {
         title: 'Liberar',
-        path: '/logged/stock/release/list'
+        path: '/logged/stock/release'
       },
     ]
   }
