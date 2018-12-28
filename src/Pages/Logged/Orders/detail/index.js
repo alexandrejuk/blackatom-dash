@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import orderService from '../../../../services/orders'
 import individualProductService from '../../../../services/individualProduct'
+import moment from 'moment';
 
 import './index.css'
 import iconCheck from '../../../../assets/icon/checked.svg'
@@ -157,10 +158,10 @@ class OrderList extends Component {
               <span className="spanTitle">Status: <span>{order.status}</span></span>
             </Col>
             <Col className="gutter-row" span={6}>
-              <span className="spanTitle">Aberto Por： <span>Alexandre S.</span> </span>
+              {/* <span className="spanTitle">Aberto Por： <span>Alexandre S.</span> </span> */}
             </Col>
             <Col className="gutter-row" span={6}>
-              <span className="spanTitle">Criado Em： <span>{order.createdAt}</span></span>
+              <span className="spanTitle">Criado Em： <span>{moment(order.createdAt).format('DD/MM/YYYY HH:mm')}</span></span>
             </Col>
           </Row>
           <Row className="orderProducts">

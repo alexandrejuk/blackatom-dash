@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './index.css'
+import { message } from 'antd'
 
 import NewReserveContainer from '../../../../../Containers/Reserve/Form'
 
@@ -11,13 +12,23 @@ import reserveService from '../../../../../services/reserve'
 
 const removeMask = value => value.replace(/\D+/g, '');
 
+const success = () => {
+  message.success('Reserva cadastrada com sucesso!')
+}
+
+const error = () => {
+  message.error('Não foi possível cadastrar a reserva!')
+}
+
 class NewReserve extends Component {
   state = {
     customer: {},
     stockLocations: [],
     products: [],
     listCalls: [],
+    formKey: 0
   }
+
   componentDidMount() {
     this.getProducts()
     this.getStockLocations()
@@ -58,6 +69,7 @@ class NewReserve extends Component {
       reservedAt: new Date(),
       originId: reserve.originId,
       originType: reserve.originType,
+      employeeId: reserve.employeeId,
       products: reserve.products
         .map(item => ({
           quantity: item.quantity,
@@ -67,8 +79,11 @@ class NewReserve extends Component {
 
     try {
       await reserveService.addReserve(formattedReserve)
-        .then(response => console.log(response))
+        .then(response => response)
+      success()
+      this.setState((state) => ({ formKey: state.formKey + 1 }))
     } catch (err) {
+      error()
     }
   }
 
@@ -81,6 +96,7 @@ class NewReserve extends Component {
         listCalls={this.state.listCalls}
         stockLocations={this.state.stockLocations}
         onSubmit={this.saveReserve}
+        key={this.state.formKey}
       />
     )
   }

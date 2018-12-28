@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import moment from 'moment'
 import { Table } from 'antd'
 import './index.css'
 
@@ -25,6 +26,13 @@ const columns = [
     title: 'Estoque',
     dataIndex: 'stockLocation.name',
     key: 'stockLocation.name',
+  },
+  {
+    title: 'Data Lançamento',
+    dataIndex: 'stockLocation.createdAt',
+    key: 'stockLocation.createdAt',
+    render: (createdAt) =>
+      moment(createdAt).format('DD/MM/YYYY HH:mm')
   }
 ]
 class StockList extends Component {

@@ -1,8 +1,19 @@
 import React, { Component } from 'react'
+import './index.css'
+import { message } from 'antd'
+import { omit } from 'ramda'
+
 import ProductForm from '../../../../Containers/Product/Form'
 import productService from '../../../../services/products'
-import './index.css'
-import { omit } from 'ramda'
+
+const success = () => {
+  message.success('Produto editado com sucesso!')
+}
+
+const error = () => {
+  message.error('Não foi possível editar o produto!')
+}
+
 
 class EditProduct extends Component {
   form = null
@@ -31,10 +42,15 @@ class EditProduct extends Component {
   }
 
   handleOnSubmit = async (values) => {
-    const updatedProduct = await productService.editProduct(this.state.product.id, values.serialNumber)
-      .then(response => response.data)
-    
-    this.setForm(updatedProduct)
+    try {
+      const updatedProduct = await productService
+        .editProduct(this.state.product.id, values)
+        .then(response => response.data)
+      this.setForm(updatedProduct)
+      success()
+    } catch (err) {
+      error()
+    }
   }
 
   render() { 

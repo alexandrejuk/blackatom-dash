@@ -49,7 +49,7 @@ class Relase extends Component {
       dataIndex: 'quantity',
     },
     {
-      title: 'Qtd. Disponivel',
+      title: 'Qtd. Pendente',
       dataIndex: 'currentQuantity',
     },
     {
@@ -92,7 +92,6 @@ class Relase extends Component {
 
   renderModal() {
     const { productReservation } = this.state
-
     return (
       <Modal visible={this.state.modalOpen} footer={false} onCancel={this.closeModal}>
         <div className="wrapperRelease">
@@ -117,8 +116,8 @@ class Relase extends Component {
               />
           </div>
           <div>
-            <h3 className="titleRelease">Relógio de Ponto Prisma SF</h3>
-            <p className="subtitleRelease">Quantidade Reserva: 10 un</p>
+            <h3 className="titleRelease">{productReservation.product.name}</h3>
+            <p className="subtitleRelease">Quantidade Reserva: {productReservation.quantity} un</p>
           </div>
           <div className="footerRelease">
             <Button type="primary" block onClick={this.handleSubmit}>Salvar</Button>
@@ -152,10 +151,41 @@ class Relase extends Component {
     })
   }
 
-  render() { 
-    const { productReservationList } = this.props
+  onChangeTechnical = (employeeId) => {
+    this.props.fetchList(employeeId)
+  }
+
+  render() {  
+    const { productReservationList, technical } = this.props
     return ( 
      <div>
+
+      <Select
+        showSearch
+        style={{ width: 200 }}
+        placeholder="Selecione o técnico!"
+        optionFilterProp="children"
+        onChange={this.onChangeTechnical}
+        filterOption={
+          (input, option) => 
+            option.props.children
+              .toLowerCase()
+              .indexOf(input.toLowerCase()) >= 0
+        }
+      >
+        {
+          technical.map(
+            tec =>
+              <Option 
+                key={tec._id} 
+                value={tec._id}>
+                  {tec.nome}
+              </Option>
+          )
+        }
+
+      </Select>
+
      
        <div>
         <Table

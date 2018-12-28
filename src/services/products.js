@@ -16,8 +16,9 @@ const getProductById = (id) => {
   return axios.get(`${endpoint}/${id}`)
 }
 
-const editProduct = (id, product) => {
-  return axios.put(`${endpoint}/${id}`, product)
+const editProduct = (id, content) => {
+  const headers = {headers: {"Content-Type": "application/json"}}
+  return axios.put(`${endpoint}/${id}`, content, headers)
 }
 
 export default {
