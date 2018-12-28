@@ -12,6 +12,7 @@ class ReservedList extends Component {
   state = { 
     stocks: [],
     stockLocation: [],
+    selectedStockLocation: 'all',
   }
 
   componentDidMount(){ 
@@ -37,7 +38,6 @@ class ReservedList extends Component {
 
 
   async fethProductsStockLocationTotal(stockLocationId) {
-
     const stocks = await stockService.getStockProductsStockLocationId(stockLocationId)
       .then(response => response.data)
 
@@ -45,10 +45,15 @@ class ReservedList extends Component {
   } 
 
   onChangeStockSelected = (stockSelected) => {
-    if(stockSelected === 'all') {
-      return this.fethProductsStockTotal()
-    }
-    return this.fethProductsStockLocationTotal(stockSelected)  
+    this.setState({
+      selectedStockLocation: stockSelected
+    }, () => {
+      if(stockSelected === 'all') {
+        return this.fethProductsStockTotal()
+      }
+      
+      return this.fethProductsStockLocationTotal(stockSelected)  
+    })
   }
 
   render() { 
@@ -58,11 +63,10 @@ class ReservedList extends Component {
           <h1>Saldo Estoque</h1>
           <Select
             showSearch
+            value={this.state.selectedStockLocation}
             style={{ width: 200 }}
             placeholder="Select a person"
-            optionFilterProp="children"
             onChange={this.onChangeStockSelected}
-            filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
           >
             <Option value="all">TODOS</Option>
             { this.state.stockLocation.map(stock => 
