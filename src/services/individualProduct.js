@@ -1,22 +1,22 @@
 import axios from 'axios'
 
-const url = 'http://localhost:3003/api'
-const endpoint = `${url}/individual-products`
+const HOST = process.env.REACT_APP_HOST
+const url = `http://${HOST}:3003/api/individual-products`
 
 const addManyProductsSerialNumber = (productsSerialNumber) => {
-  return axios.post(endpoint, productsSerialNumber)
+  return axios.post(url, productsSerialNumber)
 }
 
 const individualProductList = () => {
-  return axios.get(endpoint)
+  return axios.get(url)
 }
 
 const getProductAvailableById = (id) => {
-  return axios.get(`${endpoint}/${id}`)
+  return axios.get(`${url}/${id}`)
 }
 
 const editProductAvailable = (id, serialNumber) => {
-  return axios.put(`${endpoint}/${id}`, { serialNumber })
+  return axios.put(`${url}/${id}`, { serialNumber })
 }
 
 export default {

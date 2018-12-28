@@ -5,6 +5,8 @@ import individualProductService from '../../../../services/individualProduct'
 import './index.css'
 import iconCheck from '../../../../assets/icon/checked.svg'
 import iconCancell from '../../../../assets/icon/delete.svg'
+import iconBarcode from '../../../../assets/icon/barcode.jpg'
+
 import { uniqWith, eqBy } from 'ramda'
 
 import { Col, Row, Button, Alert, Modal, Input, message } from 'antd'
@@ -108,7 +110,12 @@ class OrderList extends Component {
           <Button key="submit" onClick={this.handleOk} type="primary" >Salvar</Button>,
         ]}
       >
-        <TextArea rows={4} value={this.state.serialNumbersText} onChange={this.handleOnChange} />
+        <div className="wrapperBarcode">
+          <img src={iconBarcode} className="barcodeIcon" alt="barcode-scan" />
+          <h3 className="modalTitle">Utilize o Leitor de código de barras</h3>
+          <p className="no-space-around">Para utilizar corretamente o cursor deve ficar piscando</p>
+        </div>
+        <TextArea ref={this.textInput} rows={4} value={this.state.serialNumbersText} onChange={this.handleOnChange} />
       </Modal>
     )
   }

@@ -26,3 +26,21 @@
 .footer {
   margin-top: 20px;
 }
+
+.wrapperBarcode {
+  width: 100%;
+  text-align: center;
+}
+
+.barcodeIcon {
+  border-radius: 50%;
+  width: 72px;
+}
+
+.modalTitle {
+  margin: 10px 0 0 0;
+}
+.no-space-around {
+  margin: 0;
+  padding: 0;
+}

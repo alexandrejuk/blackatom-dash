@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { Form, AutoComplete, InputNumber, Button } from 'antd'
+import { Button, Form, AutoComplete, InputNumber } from 'antd'
 
 const FormItem = Form.Item
 const AutoCompleteOption = AutoComplete.Option
 
-class OrderProductForm extends Component {
+class ReserveProductForm extends Component {
   state = {
     productSearch: '',
     selectedProduct: null,
@@ -46,13 +46,11 @@ class OrderProductForm extends Component {
       })
 
     return (
-      <div>
-        <div className="titleOrderProducts">
-          <h2>Produtos da Compra</h2>
+      <Form layout="inline" onSubmit={this.handleSubmit}>
+        <div className="sectionLabel">
+          <h3>Produto Reserva</h3>
         </div>
-        <Form layout="inline" onSubmit={this.handleSubmit}>
-
-            <FormItem label="Nome do Produto">
+        <FormItem label="Nome do Produto">
               {getFieldDecorator('product', {
                 initialValue: '',
                 rules: [{ required: true, message: 'Preecha o nome do produto!' }],
@@ -71,8 +69,7 @@ class OrderProductForm extends Component {
                   </AutoCompleteOption>))}
                 </AutoComplete> 
               )}
-            </FormItem>      
-        
+            </FormItem>   
             <FormItem label="Quantidade">
               {getFieldDecorator('quantity', {
                 initialValue: 1,
@@ -81,14 +78,12 @@ class OrderProductForm extends Component {
                 <InputNumber style={{ width: 100 }} min={1} max={999999999} defaultValue={3}/>
               )}
             </FormItem>
-
             <FormItem>
               <Button htmlType="submit">Adicionar</Button> 
             </FormItem>
-          </Form>
-      </div>
-    )
+      </Form>
+    );
   }
 }
 
-export default Form.create()(OrderProductForm)
+export default Form.create()(ReserveProductForm)

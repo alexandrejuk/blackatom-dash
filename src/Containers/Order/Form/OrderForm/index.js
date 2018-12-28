@@ -30,13 +30,14 @@ class OrderForm extends Component {
                 rules: [{
                   required: true,
                   message: 'Selecione o estoque da compra!'
-                }]
+                }],
+                initialValue: ''
               }
             )(
               <Select
                 showSearch
                 style={{ width: 200 }}
-                placeholder="Select a person"
+                placeholder="Selecione o estoque"
                 optionFilterProp="children"
                 filterOption={
                   (input, option) => 
