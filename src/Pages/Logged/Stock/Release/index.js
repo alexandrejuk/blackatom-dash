@@ -11,8 +11,6 @@ class Release extends Component {
 
   handleSubmit = async (item) => {
     await reserveService.updateProductReservation(item)
-
-    this.fetchList()
   }
 
   fetchList = async (employeeId) => {
@@ -31,7 +29,6 @@ class Release extends Component {
 
   handleHistoryDelete = async (id) => {
     await reserveService.deleteReservationHistory(id)
-    this.fetchList()
   }
 
   async getTechnical() {

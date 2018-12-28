@@ -27,6 +27,10 @@ const routes = [
         title: 'Liberar',
         path: '/logged/stock/release'
       },
+      {
+        title: 'Saldo',
+        path: '/logged/stock/total'
+      },
     ]
   }
 ]

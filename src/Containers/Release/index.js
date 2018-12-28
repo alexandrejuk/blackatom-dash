@@ -12,6 +12,7 @@ class Relase extends Component {
     modalOpen: false,
     productReservation: null,
     selectedType: 'release',
+    employeeId: null
   }
 
   historyColumns = [
@@ -57,7 +58,9 @@ class Relase extends Component {
       dataIndex: 'id',
       key: 'action',
       render: (id, record) => 
-      <Button onClick={() => this.showModal(record)}>detail</Button>
+      record.currentQuantity > 0 ?
+        <Button onClick={() => this.showModal(record)}>detalhes</Button> :
+      ''
     }
   ]
 
@@ -68,6 +71,7 @@ class Relase extends Component {
 
   handleHistoryDelete = (id) => {
     this.props.handleHistoryDelete(id)
+    this.props.fetchList(this.state.employeeId)
   }
 
   showModal = (productReservation) => {
@@ -142,7 +146,10 @@ class Relase extends Component {
 
     this.setState({
       modalOpen: false,
-    }, () => this.props.handleSubmit(formattedItem))
+    }, () =>
+      this.props.handleSubmit(formattedItem)
+    )
+    this.props.fetchList(this.state.employeeId)
   }
 
   onChange = (selectedQuantity) => {
@@ -152,6 +159,7 @@ class Relase extends Component {
   }
 
   onChangeTechnical = (employeeId) => {
+    this.setState({ employeeId })
     this.props.fetchList(employeeId)
   }
 
