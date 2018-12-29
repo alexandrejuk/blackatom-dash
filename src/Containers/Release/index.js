@@ -69,9 +69,9 @@ class Relase extends Component {
     <Table pagination={false} columns={this.historyColumns} dataSource={record.history} />
   </div> 
 
-  handleHistoryDelete = (id) => {
-    this.props.handleHistoryDelete(id)
-    this.props.fetchList(this.state.employeeId)
+  handleHistoryDelete = async (id) => {
+    await this.props.handleHistoryDelete(id)
+    await this.props.fetchList(this.state.employeeId)
   }
 
   showModal = (productReservation) => {
@@ -146,10 +146,10 @@ class Relase extends Component {
 
     this.setState({
       modalOpen: false,
-    }, () =>
-      this.props.handleSubmit(formattedItem)
-    )
-    this.props.fetchList(this.state.employeeId)
+    }, async () =>{
+      await this.props.handleSubmit(formattedItem)
+      this.props.fetchList(this.state.employeeId)
+    })
   }
 
   onChange = (selectedQuantity) => {
@@ -159,27 +159,22 @@ class Relase extends Component {
   }
 
   onChangeTechnical = (employeeId) => {
-    this.setState({ employeeId })
-    this.props.fetchList(employeeId)
+    this
+      .setState(
+        { employeeId },
+        () => this.props.fetchList(employeeId)
+      )
   }
 
-  render() {  
-    const { productReservationList, technical } = this.props
-    return ( 
-     <div>
+  renderEmployeeOptions = () => {
+    const { technical } = this.props
 
+    return (
       <Select
         showSearch
         style={{ width: 200 }}
         placeholder="Selecione o técnico!"
-        optionFilterProp="children"
         onChange={this.onChangeTechnical}
-        filterOption={
-          (input, option) => 
-            option.props.children
-              .toLowerCase()
-              .indexOf(input.toLowerCase()) >= 0
-        }
       >
         {
           technical.map(
@@ -193,8 +188,14 @@ class Relase extends Component {
         }
 
       </Select>
+    )
+  }
 
-     
+  render() {  
+    const { productReservationList } = this.props
+    return ( 
+     <div>
+       {this.renderEmployeeOptions()}
        <div>
         <Table
           columns={this.columns}
