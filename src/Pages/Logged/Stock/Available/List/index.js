@@ -1,22 +1,25 @@
 import React, { Component } from 'react'
 
 import IndividualProductListContainer from '../../../../../Containers/IndividualProduct/List'
-import individualProductService from '../../../../../services/individualProduct'
+import IndividualProductService from '../../../../../services/individualProduct'
 
 import './index.css'
 
 class IndividualProductList extends Component {
+  individualProductService = null
   state = { 
     individualProducts: []
   }
 
   componentDidMount() {
+    this.individualProductService = new IndividualProductService()
     this.getIndividualProducts()
   }
 
   getIndividualProducts = async () => {
-    const individualProducts = await individualProductService.individualProductList()
+    const individualProducts = await this.individualProductService.individualProductList()
         .then(response => response.data)
+
     this.setState({ individualProducts })
   }
 

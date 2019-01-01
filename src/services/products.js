@@ -1,29 +1,27 @@
-import axios from 'axios'
+import request from './request'
 
-const HOST = process.env.REACT_APP_HOST
-const url = `http://${HOST}:3003/api`
-const endpoint = `${url}/products`
+const endpoint = `/products`
 
-const addProduct = (product) => {
-  return axios.post(endpoint, product)
+class ProductService {
+  constructor() {
+    this.axios = request.getAxiosInstance()
+  }
+
+  addProduct = (product) => {
+    return this.axios.post(endpoint, product)
+  }
+  
+  productList = () => {
+    return this.axios.get(endpoint)
+  }
+  
+  getProductById = (id) => {
+    return this.axios.get(`${endpoint}/${id}`)
+  }
+  
+  editProduct = (id, content) => {
+    return this.axios.put(`${endpoint}/${id}`, content)
+  }
 }
 
-const productList = () => {
-  return axios.get(endpoint)
-}
-
-const getProductById = (id) => {
-  return axios.get(`${endpoint}/${id}`)
-}
-
-const editProduct = (id, content) => {
-  const headers = {headers: {"Content-Type": "application/json"}}
-  return axios.put(`${endpoint}/${id}`, content, headers)
-}
-
-export default {
-  addProduct,
-  editProduct,
-  getProductById,
-  productList,
-}
+export default ProductService

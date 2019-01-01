@@ -1,28 +1,27 @@
-import axios from 'axios'
+import request from './request'
 
-const HOST = process.env.REACT_APP_HOST
-const url = `http://${HOST}:3003/api`
-const endpoint = `${url}/orders`
+const endpoint = `/orders`
 
-const addOrder = (order) => {
-  return axios.post(endpoint, order)
+class OrderService {
+  constructor() {
+    this.axios = request.getAxiosInstance()
+  }
+
+  addOrder = (order) => {
+    return this.axios.post(endpoint, order)
+  }
+  
+  orderList = () => {
+    return this.axios.get(endpoint)
+  }
+  
+  getOrderById = (id) => {
+    return this.axios.get(`${endpoint}/${id}`)
+  }
+  
+  updateOrderById = (id) => {
+    return this.axios.put(`${endpoint}/${id}`)
+  }
 }
 
-const orderList = () => {
-  return axios.get(endpoint)
-}
-
-const getOrderById = (id) => {
-  return axios.get(`${endpoint}/${id}`)
-}
-
-const updateOrderById = (id) => {
-  return axios.put(`${endpoint}/${id}`)
-}
-
-export default {
-  addOrder,
-  orderList,
-  getOrderById,
-  updateOrderById,
-}
+export default OrderService

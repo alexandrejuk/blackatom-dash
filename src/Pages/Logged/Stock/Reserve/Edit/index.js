@@ -1,16 +1,19 @@
 import React, { Component } from 'react'
-import reserveService from '../../../../../services/reserve'
+import ReserveService from '../../../../../services/reserve'
 import ReservationEditContainer from '../../../../../Containers/Reserve/Edit'
 
 class ReservationEdit extends Component {
+  reserveService = null 
+
   state = {
     reservation: null,
     loading: true,
   }
 
   async componentDidMount() {
+    this.reserveService = new ReserveService()
     const reservationId = this.props.match.params.id
-    const { data: reservation } = await reserveService.getById(reservationId)
+    const { data: reservation } = await this.reserveService.getById(reservationId)
 
     this.setState({
       loading: false,

@@ -4,11 +4,11 @@ import { message } from 'antd'
 
 import NewReserveContainer from '../../../../../Containers/Reserve/Form'
 
-import callService from '../../../../../services/call'
-import customerService from '../../../../../services/customer'
-import productService from '../../../../../services/products'
-import stockLocationService from '../../../../../services/stockLocation'
-import reserveService from '../../../../../services/reserve'
+import CallService from '../../../../../services/call'
+import CustomerService from '../../../../../services/customer'
+import ProductService from '../../../../../services/products'
+import StockLocationService from '../../../../../services/stockLocation'
+import ReserveService from '../../../../../services/reserve'
 
 const removeMask = value => value.replace(/\D+/g, '');
 
@@ -21,6 +21,12 @@ const error = () => {
 }
 
 class NewReserve extends Component {
+  callService = null
+  customerService = null
+  productService = null
+  stockLocationService = null
+  reserveService = null
+
   state = {
     customer: {},
     stockLocations: [],
@@ -30,13 +36,19 @@ class NewReserve extends Component {
   }
 
   componentDidMount() {
+    this.callService = new CallService()
+    this.customerService = new CustomerService()
+    this.productService = new ProductService()
+    this.stockLocationService = new StockLocationService()
+    this.reserveService = new ReserveService()
+
     this.getProducts()
     this.getStockLocations()
   }
 
   handleGetCustomerByCnpj = async (value) => {
     const documentId =  removeMask(value)
-    const customer = await customerService
+    const customer = await this.customerService
       .getCustomerByCnpj(documentId)
       .then(response => response.data)
     this.setState({ customer })
@@ -44,19 +56,19 @@ class NewReserve extends Component {
   }
 
   async getListCall(documentId) {
-    const { data: { atendimentos: listCalls }} = await callService.getListCallByCnpj(documentId)
+    const { data: { atendimentos: listCalls }} = await this.callService.getListCallByCnpj(documentId)
     this.setState({ listCalls })
   }
 
   async getProducts() {
-    const products = await productService
+    const products = await this.productService
       .productList()
       .then(response => response.data)
     this.setState({ products })
   }
 
   async getStockLocations() {
-    const stockLocations = await stockLocationService
+    const stockLocations = await this.stockLocationService
       .getStockLocations()
       .then(response => response.data)
     this.setState({ stockLocations })
@@ -78,7 +90,7 @@ class NewReserve extends Component {
     }
 
     try {
-      await reserveService.addReserve(formattedReserve)
+      await this.reserveService.addReserve(formattedReserve)
         .then(response => response)
       success()
       this.setState((state) => ({ formKey: state.formKey + 1 }))

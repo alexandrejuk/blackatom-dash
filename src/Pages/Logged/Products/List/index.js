@@ -2,22 +2,24 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from 'antd'
 
-import productService from '../../../../services/products'
+import ProductService from '../../../../services/products'
 import ProductListContainer from '../../../../Containers/Product/List'
 
 import './index.css'
 
 class ProductList extends Component {
+  productService = null
   state = { 
     products: []
   }
 
   componentDidMount() {
+    this.productService = new ProductService()
     this.getProducts()
   }
 
   async getProducts() {
-    const products = await productService.productList()
+    const products = await this.productService.productList()
     this.setState({ products })
   }
 

@@ -3,26 +3,32 @@ import './index.css'
 import { Select } from 'antd'
 
 import TotalListContainer from '../../../../Containers/Stock/TotalList'
-import stockService from '../../../../services/stock'
-import stockLocationService from '../../../../services/stockLocation'
+import StockService from '../../../../services/stock'
+import StockLocationService from '../../../../services/stockLocation'
 
 const Option = Select.Option
 
 class ReservedList extends Component {
+  stockService = null
+  stockLocationService = null
+
   state = { 
     stocks: [],
     stockLocation: [],
     selectedStockLocation: 'all',
   }
 
-  componentDidMount(){ 
+  componentDidMount(){
+    this.stockService = new StockService()
+    this.stockLocationService = new StockLocationService()
+
     this.fethProductsStockTotal()
     this.fethstockLocation()
   }
 
   async fethstockLocation() {
 
-    const stockLocation = await stockLocationService.getStockLocations()
+    const stockLocation = await this.stockLocationService.getStockLocations()
       .then(response => response.data)
 
     this.setState({ stockLocation })
@@ -30,7 +36,7 @@ class ReservedList extends Component {
 
   async fethProductsStockTotal() {
 
-    const stocks = await stockService.getStockProducts()
+    const stocks = await this.stockService.getStockProducts()
       .then(response => response.data)
 
     this.setState({ stocks })
@@ -38,7 +44,7 @@ class ReservedList extends Component {
 
 
   async fethProductsStockLocationTotal(stockLocationId) {
-    const stocks = await stockService.getStockProductsStockLocationId(stockLocationId)
+    const stocks = await this.stockService.getStockProductsStockLocationId(stockLocationId)
       .then(response => response.data)
 
     this.setState({ stocks })

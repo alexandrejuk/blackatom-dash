@@ -1,18 +1,20 @@
 import React, { Component } from 'react'
 import StockList from '../../../../Containers/Stock/List'
-import stockService from '../../../../services/stock'
+import StockService from '../../../../services/stock'
 
 class Manager extends Component {
+  stockService = null
   state = { 
     stocks: []
   }
 
   componentDidMount() {
+    this.stockService = new StockService()
     this.getStocks()
   }
 
   async getStocks() {
-    const stocks = await stockService
+    const stocks = await this.stockService
       .getStocks()
       .then(response => response.data)
 

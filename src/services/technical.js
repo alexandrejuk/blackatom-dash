@@ -1,12 +1,15 @@
-import axios from 'axios'
+import request from './request'
 
-const HOST = process.env.REACT_APP_HOST
-const url = `http://${HOST}:3003/api`
+const endpoint = `/technical`
 
-const getListTechnical = () => {
-  return axios.get(`${url}/technical`)
+class TechnicalService {
+  constructor() {
+    this.axios = request.getAxiosInstance()
+  }
+
+  getListTechnical = () => {
+    return this.axios.get(endpoint)
+  }
 }
 
-export default {
-  getListTechnical,
-}
+export default TechnicalService

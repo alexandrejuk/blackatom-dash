@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import orderService from '../../../../services/orders'
-import individualProductService from '../../../../services/individualProduct'
+import OrderService from '../../../../services/orders'
+import IndividualProductService from '../../../../services/individualProduct'
 import moment from 'moment';
 
 import './index.css'
@@ -25,6 +25,9 @@ const error = (msg) => {
 
 
 class OrderList extends Component {
+  orderService = null
+  individualProductService = null
+
   state = { 
     order: {},
     loading: false,
@@ -34,6 +37,9 @@ class OrderList extends Component {
   }
 
   componentDidMount() {
+    this.orderService = new OrderService()
+    this.individualProductService = new IndividualProductService()
+
     this.getOrder()
   }
 
@@ -52,7 +58,7 @@ class OrderList extends Component {
 
   async getOrder() {
     const id = this.props.match.params.id
-    const order = await orderService
+    const order = await this.orderService
       .getOrderById(id)
       .then(response => response.data)
 
@@ -83,7 +89,7 @@ class OrderList extends Component {
         throw new Error()
       }
 
-      await individualProductService
+      await this.individualProductService
         .addManyProductsSerialNumber(individualProductData)
       
       this.setState({ productModal: null, serialNumbersText: '' })
@@ -123,7 +129,7 @@ class OrderList extends Component {
   
   handleCancellOrder = async () => {
     const id = this.props.match.params.id
-    const order = await orderService
+    const order = await this.orderService
       .updateOrderById(id)
       .then(response => response.data)
     this.setState({ order })

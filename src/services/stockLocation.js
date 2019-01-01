@@ -1,15 +1,15 @@
-import axios from 'axios'
+import request from './request'
 
-const HOST = process.env.REACT_APP_HOST
-const url = `http://${HOST}:3003/api`
-const endpoint = `${url}/stockLocations`
+const endpoint = `/stockLocations`
 
+class StockLocationService {
+  constructor() {
+    this.axios = request.getAxiosInstance()
+  }
 
-const getStockLocations = () => {
-  return axios.get(endpoint)
+  getStockLocations = () => {
+    return this.axios.get(endpoint)
+  }
 }
 
-
-export default {
-  getStockLocations
-}
+export default StockLocationService
