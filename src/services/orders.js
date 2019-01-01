@@ -10,6 +10,10 @@ class OrderService {
   addOrder = (order) => {
     return this.axios.post(endpoint, order)
   }
+
+  addSerialNumbers = (orderId, orderProductId, serialNumbers) => {
+    return this.axios.post(`${endpoint}/${orderId}/orderProducts/${orderProductId}`, serialNumbers)
+  }
   
   orderList = () => {
     return this.axios.get(endpoint)

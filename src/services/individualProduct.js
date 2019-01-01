@@ -7,10 +7,6 @@ class IndividualProductService {
     this.axios = request.getAxiosInstance()
   }
 
-  addManyProductsSerialNumber = (productsSerialNumber) => {
-    return this.axios.post(url, productsSerialNumber)
-  }
-  
   individualProductList = () => {
     return this.axios.get(url)
   }

@@ -75,26 +75,24 @@ class OrderList extends Component {
   }
 
   handleClick = async () => {
-    const individualProductData = {
-      productId: this.state.productModal.productId,
-      originId: this.state.productModal.id,
-      originType: 'orderProduct',
-      stockLocationId: this.state.order.stockLocationId,
-      serialNumbers: this.getSerialNumbers()
-    }
-
+    const orderId = this.state.order.id
+    const orderProductId = this.state.productModal.id
+    const serialNumbers = this.getSerialNumbers()
+  
     try {
-
-      if (individualProductData.serialNumbers.length > this.state.productModal.unregisteredQuantity) {
+      if (serialNumbers.length > this.state.productModal.unregisteredQuantity) {
         throw new Error()
       }
 
-      await this.individualProductService
-        .addManyProductsSerialNumber(individualProductData)
+      await this.orderService.addSerialNumbers(orderId, orderProductId, serialNumbers)
       
-      this.setState({ productModal: null, serialNumbersText: '' })
-      this.getOrder()
-      success()
+      this.setState(
+        { productModal: null, serialNumbersText: '' },
+        () => {
+          this.getOrder()
+          success()
+        }
+      )
     } catch (err) {
       error('Verifique a quantidade e os números serial(s), e tente novamente!')
     }    
