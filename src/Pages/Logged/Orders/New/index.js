@@ -4,15 +4,20 @@ import { message } from 'antd'
 
 import NewOrderContainers from '../../../../Containers/Order/Form'
 
-import productService from '../../../../services/products'
-import stockLocationService from '../../../../services/stockLocation'
-import orderService from '../../../../services/orders'
+import ProductService from '../../../../services/products'
+import StockLocationService from '../../../../services/stockLocation'
+import OrderService from '../../../../services/orders'
 
 const error = () => {
   message.error('Não foi possível cadastrar o produto!')
 }
 
 class NewOrder extends Component {
+  orderService = null
+  stockLocationService = null
+  orderService = null
+  productService = null
+
   state = {
     products: [],
     stockLocations: [],
@@ -23,19 +28,24 @@ class NewOrder extends Component {
   }
 
   componentDidMount() {
+    this.orderService = new OrderService()
+    this.stockLocationService = new StockLocationService()
+    this.orderService = new OrderService()
+    this.productService = new ProductService()
+
     this.getProducts()
     this.getStockLocations()
   }
 
   async getProducts() {
-    const products = await productService
+    const products = await this.productService
       .productList()
       .then(response => response.data)
     this.setState({ products })
   }
 
   async getStockLocations() {
-    const stockLocations = await stockLocationService
+    const stockLocations = await this.stockLocationService
       .getStockLocations()
       .then(response => response.data)
     this.setState({ stockLocations })
@@ -53,7 +63,7 @@ class NewOrder extends Component {
     }
 
     try {
-      await orderService.addOrder(formattedOrder)
+      await this.orderService.addOrder(formattedOrder)
         .then(response => {
           this.setState({ 
             redirectPage: { 

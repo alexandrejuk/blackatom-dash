@@ -1,27 +1,25 @@
-import axios from 'axios'
+import request from './request'
 
-const HOST = process.env.REACT_APP_HOST
-const url = `http://${HOST}:3003/api/individual-products`
+const url = `/individual-products`
 
-const addManyProductsSerialNumber = (productsSerialNumber) => {
-  return axios.post(url, productsSerialNumber)
+class IndividualProductService {
+  constructor() {
+    this.axios = request.getAxiosInstance()
+  }
+
+  individualProductList = () => {
+    return this.axios.get(url)
+  }
+  
+  getProductAvailableById = (id) => {
+    return this.axios.get(`${url}/${id}`)
+  }
+  
+  editProductAvailable = (id, serialNumber) => {
+    return this.axios.put(`${url}/${id}`, { serialNumber })
+  }
 }
 
-const individualProductList = () => {
-  return axios.get(url)
-}
 
-const getProductAvailableById = (id) => {
-  return axios.get(`${url}/${id}`)
-}
 
-const editProductAvailable = (id, serialNumber) => {
-  return axios.put(`${url}/${id}`, { serialNumber })
-}
-
-export default {
-  addManyProductsSerialNumber,
-  individualProductList,
-  getProductAvailableById,
-  editProductAvailable,
-}
+export default IndividualProductService

@@ -28,7 +28,7 @@ class ReserveProductForm extends Component {
     }
   }
 
-  showModal = (productModal) => {
+  showModal = () => {
     this.setState({ visible: true })
   }
 
@@ -38,7 +38,10 @@ class ReserveProductForm extends Component {
 
   handleOk = () => {
     this.setState({ visible: false })
-    this.props.handleOriginIdSelected(this.state.originId)
+    if(this.state.callSelected) {
+      return this.props.handleOriginIdSelected(this.state.originId, this.state.callSelected)
+    }
+    return this.props.handleOriginIdSelected(this.state.originId, this.state.callSelected)
   }
 
   handleSelected = (item) => {  

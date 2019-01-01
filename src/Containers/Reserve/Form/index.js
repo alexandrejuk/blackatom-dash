@@ -12,6 +12,7 @@ class NewReserve extends Component {
   state = {
     productList: [],
     originId: null,
+    callSelected: null
   }
 
   handleAddProductList = (value) => {
@@ -33,14 +34,15 @@ class NewReserve extends Component {
         this.props.onSubmit({
           ...values,
           products: this.state.productList,
-          originId: this.state.originId
+          originId: this.state.originId,
+          employeeId: this.state.callSelected ? this.state.callSelected.tecnico._id : this.state.originId
         })
       }
     });
   }
 
-  handleOriginIdSelected = (originId) => {
-    this.setState({ originId })
+  handleOriginIdSelected = (originId, callSelected) => {
+    this.setState({ originId, callSelected })
   }
   
   render() {

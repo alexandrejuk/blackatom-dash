@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import orderService from '../../../../services/orders'
-import individualProductService from '../../../../services/individualProduct'
+import OrderService from '../../../../services/orders'
+import IndividualProductService from '../../../../services/individualProduct'
+import moment from 'moment';
 
 import './index.css'
 import iconCheck from '../../../../assets/icon/checked.svg'
@@ -24,6 +25,9 @@ const error = (msg) => {
 
 
 class OrderList extends Component {
+  orderService = null
+  individualProductService = null
+
   state = { 
     order: {},
     loading: false,
@@ -33,6 +37,9 @@ class OrderList extends Component {
   }
 
   componentDidMount() {
+    this.orderService = new OrderService()
+    this.individualProductService = new IndividualProductService()
+
     this.getOrder()
   }
 
@@ -51,7 +58,7 @@ class OrderList extends Component {
 
   async getOrder() {
     const id = this.props.match.params.id
-    const order = await orderService
+    const order = await this.orderService
       .getOrderById(id)
       .then(response => response.data)
 
@@ -68,26 +75,24 @@ class OrderList extends Component {
   }
 
   handleClick = async () => {
-    const individualProductData = {
-      productId: this.state.productModal.productId,
-      originId: this.state.productModal.id,
-      originType: 'orderProduct',
-      stockLocationId: this.state.order.stockLocationId,
-      serialNumbers: this.getSerialNumbers()
-    }
-
+    const orderId = this.state.order.id
+    const orderProductId = this.state.productModal.id
+    const serialNumbers = this.getSerialNumbers()
+  
     try {
-
-      if (individualProductData.serialNumbers.length > this.state.productModal.unregisteredQuantity) {
+      if (serialNumbers.length > this.state.productModal.unregisteredQuantity) {
         throw new Error()
       }
 
-      await individualProductService
-        .addManyProductsSerialNumber(individualProductData)
+      await this.orderService.addSerialNumbers(orderId, orderProductId, serialNumbers)
       
-      this.setState({ productModal: null, serialNumbersText: '' })
-      this.getOrder()
-      success()
+      this.setState(
+        { productModal: null, serialNumbersText: '' },
+        () => {
+          this.getOrder()
+          success()
+        }
+      )
     } catch (err) {
       error('Verifique a quantidade e os números serial(s), e tente novamente!')
     }    
@@ -122,7 +127,7 @@ class OrderList extends Component {
   
   handleCancellOrder = async () => {
     const id = this.props.match.params.id
-    const order = await orderService
+    const order = await this.orderService
       .updateOrderById(id)
       .then(response => response.data)
     this.setState({ order })
@@ -157,10 +162,10 @@ class OrderList extends Component {
               <span className="spanTitle">Status: <span>{order.status}</span></span>
             </Col>
             <Col className="gutter-row" span={6}>
-              <span className="spanTitle">Aberto Por： <span>Alexandre S.</span> </span>
+              {/* <span className="spanTitle">Aberto Por： <span>Alexandre S.</span> </span> */}
             </Col>
             <Col className="gutter-row" span={6}>
-              <span className="spanTitle">Criado Em： <span>{order.createdAt}</span></span>
+              <span className="spanTitle">Criado Em： <span>{moment(order.createdAt).format('DD/MM/YYYY HH:mm')}</span></span>
             </Col>
           </Row>
           <Row className="orderProducts">

@@ -1,12 +1,15 @@
-import axios from 'axios'
+import request from './request'
 
-const HOST = process.env.REACT_APP_HOST
-const url = `http://${HOST}:3003/api`
+const url = `/customer`
 
-const getCustomerByCnpj = (cnpj) => {
-  return axios.get(`${url}/customer/${cnpj}`)
+class CustomerService {
+  constructor() {
+    this.axios = request.getAxiosInstance()
+  }
+
+  getCustomerByCnpj = (cnpj) => {
+    return this.axios.get(url + '/' + cnpj)
+  }
 }
 
-export default {
-  getCustomerByCnpj,
-}
+export default CustomerService

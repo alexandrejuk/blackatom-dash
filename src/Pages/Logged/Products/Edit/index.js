@@ -1,23 +1,36 @@
 import React, { Component } from 'react'
-import ProductForm from '../../../../Containers/Product/Form'
-import productService from '../../../../services/products'
 import './index.css'
+import { message } from 'antd'
 import { omit } from 'ramda'
 
+import ProductForm from '../../../../Containers/Product/Form'
+import ProductService from '../../../../services/products'
+
+const success = () => {
+  message.success('Produto editado com sucesso!')
+}
+
+const error = () => {
+  message.error('Não foi possível editar o produto!')
+}
+
+
 class EditProduct extends Component {
+  productService = null
   form = null
   state = { 
     product: {}
   }
 
   componentDidMount() {
+    this.productService = new ProductService()
     this.getProduct()
   }
 
   async getProduct() {
     const id = this.props.match.params.id
 
-    const product = await productService.getProductById(id)
+    const product = await this.productService.getProductById(id)
       .then(response => response.data)
 
     this.setForm(product)
@@ -31,10 +44,15 @@ class EditProduct extends Component {
   }
 
   handleOnSubmit = async (values) => {
-    const updatedProduct = await productService.editProduct(this.state.product.id, values.serialNumber)
-      .then(response => response.data)
-    
-    this.setForm(updatedProduct)
+    try {
+      const updatedProduct = await this.productService
+        .editProduct(this.state.product.id, values)
+        .then(response => response.data)
+      this.setForm(updatedProduct)
+      success()
+    } catch (err) {
+      error()
+    }
   }
 
   render() { 
