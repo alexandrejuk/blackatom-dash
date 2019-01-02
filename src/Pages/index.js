@@ -8,7 +8,7 @@ const Pages = () => (
   <Switch>
     <Route path="/logged" component={Logged}/>
     <Route path="/auth" component={Auth}/>
-    <Redirect to='/logged'/>
+    <Redirect to='/auth'/>
   </Switch>
 )
 export default Pages
