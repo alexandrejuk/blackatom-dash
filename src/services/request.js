@@ -6,10 +6,12 @@ const PORT = 3003
 
 
 const createInstance = () => {
+  const token = localStorage.getItem('token')
+
   const axiosInstace = axios.create({
     baseURL: `${HOST}:${PORT}/api`,
     headers: {
-      APiKey: localStorage.getItem('token'),
+      Authorization: `bearer ${token}`,
     }
   })
   
@@ -18,10 +20,10 @@ const createInstance = () => {
       return response
     },
     (error) => {
-      const statusCode = path(['error', 'response', 'status'], error)
+      const statusCode = path(['response', 'status'], error)
   
       if (statusCode === 401 || statusCode === 403) {
-        window.location('/login')
+        window.location.href = '/#/auth'
       }
   
       return Promise.reject(error.response);
