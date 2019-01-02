@@ -10,6 +10,30 @@ class Auth extends Component {
     }
   }
 
+  componentDidUpdate(){
+     this.checkToken()
+  }
+
+  componentDidMount(){
+    this.checkToken()
+  }
+
+  checkToken = () => {
+    const search = this.props.location.search
+    const params = new URLSearchParams(search)
+    const token = params.get('token')
+    
+    if (token) {
+      this.setTokenAndRedirect(token)
+    }
+  }
+
+  setTokenAndRedirect = (token) => {
+    localStorage.setItem('token', token)
+
+    window.location.href = '/#/logged'
+  }
+
   handleLogin = (data) => {
     this.setState({
       loading: true,
@@ -17,9 +41,7 @@ class Auth extends Component {
       try {
         const response = await axios.post('http://165.227.78.113:3000/login', data).then(r => r.data)
         
-        localStorage.setItem('token', response.token)
-
-        window.location.href = '/#/logged'
+        this.setTokenAndRedirect(response.token)
       } catch (error) {
         this.setState({
           loading: false,
