@@ -1,7 +1,7 @@
 import request from './request'
 
 const endpoint = `/reservation`
-const productReservationEndpoint = `$/reservation-products`
+const productReservationEndpoint = `/reservation-products`
 const reservationHistory = `/reservation-history`
 
 class ReserveService {

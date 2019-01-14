@@ -75,6 +75,27 @@ class NewReserve extends Component {
   }
 
   saveReserve = async(reserve) => {
+    const products = reserve.products.reduce(
+      (rProducts, item) => {
+        if(item.product.hasSerialNumber){
+          for(let i = 0; i < item.quantity; i++){
+            rProducts.push({
+              quantity: 1,
+              productId: item.product.id,
+            })
+          }
+        } else {
+          rProducts.push({
+            quantity: item.quantity,
+            productId: item.product.id,
+          })
+        }
+
+        return rProducts
+      },
+      []
+    )
+
     const formattedReserve = {
       stockLocationId: reserve.stockLocationId,
       customerId: this.state.customer.id,
@@ -82,11 +103,8 @@ class NewReserve extends Component {
       originId: reserve.originId,
       originType: reserve.originType,
       employeeId: reserve.employeeId,
-      products: reserve.products
-        .map(item => ({
-          quantity: item.quantity,
-          productId: item.product.id,
-        }))
+      trackingCode: reserve.trackingCode,
+      products: products,
     }
 
     try {

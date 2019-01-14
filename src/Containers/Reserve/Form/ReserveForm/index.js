@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Radio, Form, Input, Modal, Button, Collapse, Icon } from 'antd'
 import './index.css'
-import { equals } from 'ramda'
 import moment from 'moment'
 
 const FormItem = Form.Item
@@ -38,21 +37,20 @@ class ReserveProductForm extends Component {
 
   handleOk = () => {
     this.setState({ visible: false })
+
     if(this.state.callSelected) {
-      return this.props.handleOriginIdSelected(this.state.originId, this.state.callSelected)
+      this.props.onCallSelect(this.state.callSelected)
     }
-    return this.props.handleOriginIdSelected(this.state.originId, this.state.callSelected)
   }
 
-  handleSelected = (item) => {  
-    if(this.state.originId === null) {
-      return this.setState({ originId: item._id, callSelected: item })
-    }
-    if(!equals(this.state.originId, item._id)) {
-      return this.setState({ originId: item._id, callSelected: item })
-    }else {
-      this.setState({ originId: null, callSelected: null })
-    }
+  handleSelected = (callSelected) => {  
+    return this.setState({ callSelected })
+  }
+
+  handleEmployeeIdChange = (e) => {
+    const employeeId = this.originTypes[e.target.value]
+
+    this.props.onEmployeeChange(employeeId)
   }
   
   renderModal = () => {
@@ -90,7 +88,7 @@ class ReserveProductForm extends Component {
                   <span className="info-label">Observação:</span> {item.observacao}
                 </div>
               </div>
-                { this.state.originId && this.state.originId === item._id ? 
+                { this.state.callSelected && this.state.callSelected._id === item._id ? 
                   <div className="info-icon">
                     <Icon type="check" />
                   </div> : ''
@@ -104,11 +102,6 @@ class ReserveProductForm extends Component {
 
       </Modal>
     )
-  }
-
-  handleOriginTypeId = (e) => {
-    this.setState({ originId: this.originTypes[e.target.value] })
-    this.props.handleOriginIdSelected(this.state.originId)
   }
 
   render() { 
@@ -163,25 +156,36 @@ class ReserveProductForm extends Component {
           )(
           <Radio.Group buttonStyle="solid">
             <Radio.Button value="atendimento" onClick={this.showModal}> Atendimento</Radio.Button>
-            <Radio.Button value="correio" onClick={this.handleOriginTypeId}> Correio</Radio.Button>
-            <Radio.Button value="cliente-retira" onClick={this.handleOriginTypeId}> Cliente Retira</Radio.Button>
-            <Radio.Button value="mercado-livre" onClick={this.handleOriginTypeId}> Mercado Livre</Radio.Button>
+            <Radio.Button value="correio" onClick={this.handleEmployeeIdChange}> Correio</Radio.Button>
+            <Radio.Button value="cliente-retira" onClick={this.handleEmployeeIdChange}> Cliente Retira</Radio.Button>
+            <Radio.Button value="mercado-livre" onClick={this.handleEmployeeIdChange}> Mercado Livre</Radio.Button>
           </Radio.Group>
           )
         }
       </FormItem>
-        { 
-          this.state.callSelected && 
-          this.state.callSelected._id === this.state.originId ?
-          <div><h1>Atendimento Associado!</h1></div> : 
-          ''
+      {this.props.selectedEmployeeId === '5c24d195304f150001e937b3' && <FormItem label="Codigo de Rastreamento">
+        {
+          getFieldDecorator(
+            'trackingCode',
+            {
+              rules: [{
+                required: true,
+                message: 'Por favor digite o codigo de rastreamento'
+              }]
+            }
+          )(<Input style={{ width: 200 }} />)
         }
+      </FormItem>}
 
-       <div className="sectionLabel">
-          <h3>Estoque</h3>
-        </div>
+      { 
+        this.props.selectedCall && <div><h1>Atendimento Associado!</h1></div>
+      }
 
-        <FormItem label="Estoque">
+      <div className="sectionLabel">
+        <h3>Estoque</h3>
+      </div>
+
+      <FormItem label="Estoque">
         {
           getFieldDecorator(
             'stockLocationId',

@@ -12,7 +12,8 @@ class NewReserve extends Component {
   state = {
     productList: [],
     originId: null,
-    callSelected: null
+    selectedCall: null,
+    employeeId: null,
   }
 
   handleAddProductList = (value) => {
@@ -31,18 +32,24 @@ class NewReserve extends Component {
   onSave = () => {
     this.reserveFormRef.props.form.validateFields((err, values) => {
       if (!err && this.state.productList.length > 0) {
-        this.props.onSubmit({
+        const reservation = {
           ...values,
           products: this.state.productList,
           originId: this.state.originId,
-          employeeId: this.state.callSelected ? this.state.callSelected.tecnico._id : this.state.originId
-        })
+          employeeId: values.originType === 'atendimento' ? this.state.selectedCall.tecnico._id : this.state.employeeId
+        }
+
+        this.props.onSubmit(reservation)
       }
     });
   }
 
-  handleOriginIdSelected = (originId, callSelected) => {
-    this.setState({ originId, callSelected })
+  handleOnCallSelect  = (selectedCall) => {
+    this.setState({ selectedCall })
+  }
+
+  handleOnEmployeeChange = employeeId => {
+    this.setState({ employeeId, selectedCall: null, originId: null })
   }
   
   render() {
@@ -55,7 +62,10 @@ class NewReserve extends Component {
           handleGetCustomerByCnpj={handleGetCustomerByCnpj} 
           wrappedComponentRef={(form) => this.reserveFormRef = form} 
           stockLocations={stockLocations} 
-          handleOriginIdSelected={this.handleOriginIdSelected}
+          onCallSelect={this.handleOnCallSelect}
+          onEmployeeChange={this.handleOnEmployeeChange}
+          selectedEmployeeId={this.state.employeeId}
+          selectedCall={this.state.selectedCall}
         />
         <ReserveProductForm 
           wrappedComponentRef={(form) => this.productFormRef = form} 
