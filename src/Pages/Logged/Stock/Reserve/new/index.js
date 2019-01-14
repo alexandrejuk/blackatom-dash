@@ -82,6 +82,7 @@ class NewReserve extends Component {
       originId: reserve.originId,
       originType: reserve.originType,
       employeeId: reserve.employeeId,
+      trackingCode: reserve.trackingCode,
       products: reserve.products
         .map(item => ({
           quantity: item.quantity,
