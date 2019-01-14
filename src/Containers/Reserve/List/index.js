@@ -19,6 +19,10 @@ const columns = [
       moment(createdAt).format('DD/MM/YYYY')
   },
   {
+    title: 'Cod. de Rastreamento',
+    dataIndex: 'trackingCode',
+  },
+  {
     title: 'Ações',
     dataIndex: 'id',
     render: (id) => 
