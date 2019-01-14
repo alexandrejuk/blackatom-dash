@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Radio, Form, Input, Modal, Button, Collapse, Icon } from 'antd'
 import './index.css'
-import { equals } from 'ramda'
 import moment from 'moment'
 
 const FormItem = Form.Item
