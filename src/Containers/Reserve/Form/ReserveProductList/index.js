@@ -8,7 +8,13 @@ class ReserveProductList extends Component {
       <Fragment key={product.product.id}>
         <div className="card-product-reserve">
           <div className="card-content">
-            <h3 className="no-margin title-card">{product.product.name}</h3>
+          <a
+              href={`${process.env.REACT_APP_HOST}/#/logged/products/edit/${product.product.id}`}
+              target="_blank">
+              <h3 className="no-margin title-card">
+               {product.product.name}
+              </h3>
+            </a>
             <p className="no-margin subtitle-card">{product.product.brand}</p>
           </div>
           <div className="card-content-quantity">
