@@ -1,41 +1,37 @@
-import axios from 'axios'
+import request from './request'
 
-const HOST = process.env.REACT_APP_HOST
-const url = `http://${HOST}:3003/api`
-const endpoint = `${url}/reservation`
-const productReservationEndpoint = `${url}/reservation-products`
-const reservationHistory = `${url}/reservation-history`
+const endpoint = `/reservation`
+const productReservationEndpoint = `/reservation-products`
+const reservationHistory = `/reservation-history`
 
+class ReserveService {
+  constructor() {
+    this.axios = request.getAxiosInstance()
+  }
 
-const addReserve = (order) => {
-  return axios.post(endpoint, order)
+  addReserve = (order) => {
+    return this.axios.post(endpoint, order)
+  }
+  
+  getAllProductReservation = (employeeId = 1) => {
+    return this.axios.get(`${productReservationEndpoint}/${employeeId}`)
+  }
+  
+  updateProductReservation = (productReservation) => {
+    return this.axios.put(productReservationEndpoint, productReservation)
+  }
+  
+  deleteReservationHistory = (id) => {
+    return this.axios.delete(`${reservationHistory}/${id}`)
+  }
+  
+  getAll = () => {
+    return this.axios.get(endpoint)
+  }
+  
+  getById = (id) => {
+    return this.axios.get(`${endpoint}/${id}`)
+  }
 }
 
-const getAllProductReservation = (employeeId = 1) => {
-  return axios.get(`${productReservationEndpoint}/${employeeId}`)
-}
-
-const updateProductReservation = (productReservation) => {
-  return axios.put(productReservationEndpoint, productReservation)
-}
-
-const deleteReservationHistory = (id) => {
-  return axios.delete(`${reservationHistory}/${id}`)
-}
-
-const getAll = () => {
-  return axios.get(endpoint)
-}
-
-const getById = (id) => {
-  return axios.get(`${endpoint}/${id}`)
-}
-
-export default {
-  addReserve,
-  getAll,
-  getById,
-  getAllProductReservation,
-  updateProductReservation,
-  deleteReservationHistory,
-}
+export default ReserveService

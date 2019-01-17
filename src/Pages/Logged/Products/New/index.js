@@ -3,7 +3,7 @@ import './index.css'
 import { message } from 'antd'
 
 import ProductForm from '../../../../Containers/Product/Form'
-import productService from '../../../../services/products'
+import ProductService from '../../../../services/products'
 
 const success = () => {
   message.success('Produto cadastrado com sucesso!')
@@ -14,13 +14,18 @@ const error = () => {
 }
 
 class NewProduct extends Component {
+  productService = null
   state = {
     formKey: 0
   }
 
+  componentDidMount(){
+    this.productService = new ProductService()
+  }
+
   handleOnSubmit = async (values) => {
     try {
-      await productService.addProduct(values)
+      await this.productService.addProduct(values)
       success()
       this.setState((state) => ({ formKey: state.formKey + 1 }))
     }catch(err) {

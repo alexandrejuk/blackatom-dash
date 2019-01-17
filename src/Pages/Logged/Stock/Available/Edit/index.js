@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import IndividualProductForm from '../../../../../Containers/IndividualProduct/Form'
-import individualProductService from '../../../../../services/individualProduct'
+import IndividualProductService from '../../../../../services/individualProduct'
 import { message } from 'antd'
 
 const success = () => {
@@ -14,18 +14,21 @@ const error = () => {
 
 class EditProductAvailable extends Component {
   form = null
+  individualProductService = null
+
   state = { 
     productAvailable: {}
   }
 
   componentDidMount() {
+    this.individualProductService = new IndividualProductService()
     this.getProductAvailable()
   }
 
   async getProductAvailable() {
     const id = this.props.match.params.id
 
-    const productAvailable = await individualProductService.getProductAvailableById(id)
+    const productAvailable = await this.individualProductService.getProductAvailableById(id)
       .then(response => response.data)
 
     this.setForm(productAvailable)
@@ -44,7 +47,7 @@ class EditProductAvailable extends Component {
 
   handleOnSubmit = async ({ serialNumber }) => {
     try {
-      await individualProductService.editProductAvailable(this.state.productAvailable.id, serialNumber)
+      await this.individualProductService.editProductAvailable(this.state.productAvailable.id, serialNumber)
       .then(response => response.data)
       success()
     } catch (err) {

@@ -1,15 +1,15 @@
 import request from './request'
 
-const endpoint = `/stockLocations`
+const endpoint = `/technical`
 
-class StockLocationService {
+class TechnicalService {
   constructor() {
     this.axios = request.getAxiosInstance()
   }
 
-  getStockLocations = () => {
+  getListTechnical = () => {
     return this.axios.get(endpoint)
   }
 }
 
-export default StockLocationService
+export default TechnicalService

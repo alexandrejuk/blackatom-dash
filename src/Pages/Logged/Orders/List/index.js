@@ -2,20 +2,23 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from 'antd'
 import './index.css'
-import orderService from '../../../../services/orders'
+import OrderService from '../../../../services/orders'
 import OrderListContainer from '../../../../Containers/Order/List'
 
 class OrderList extends Component {
+  orderService = null
+
   state = { 
     orders: []
   }
 
   componentDidMount() {
+    this.orderService = new OrderService()
     this.getOrders()
   }
 
   async getOrders() {
-    const orders = await orderService.orderList()
+    const orders = await this.orderService.orderList()
     this.setState({ orders })
   }
 

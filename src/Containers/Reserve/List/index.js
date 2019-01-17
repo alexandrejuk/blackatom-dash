@@ -1,29 +1,30 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Table } from 'antd';
+import moment from 'moment';
 
 const columns = [
   {
     title: 'Cliente',
     dataIndex: 'customer.name',
-    key: 'customer.id',
   },
   {
     title: 'Status',
     dataIndex: 'status',
-    key: 'status',
   },
   {
     title: 'Criado',
     dataIndex: 'createdAt',
-    key: 'createdAt',
     render: (createdAt) => 
-      new Intl.DateTimeFormat('pt-BR').format(new Date(createdAt))
+      moment(createdAt).format('DD/MM/YYYY')
+  },
+  {
+    title: 'Cod. de Rastreamento',
+    dataIndex: 'trackingCode',
   },
   {
     title: 'Ações',
     dataIndex: 'id',
-    key: 'action',
     render: (id) => 
       <Link className="linkNav" to={`/logged/stock/reserve/edit/${id}`}>
         <Button>Detalhes</Button>

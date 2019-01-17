@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import moment from 'moment'
-import { Table } from 'antd'
 import './index.css'
+import { Table } from 'antd'
 
 const columns = [
   {
@@ -16,30 +15,18 @@ const columns = [
   },
   {
     title: 'Quantidade',
-    dataIndex: 'quantity',
-    key: 'quantity',
+    dataIndex: 'total',
+    key: 'total',
     render: (quantity) => quantity < 0 ?
     <span className="text-danger">{quantity}</span> :
     <span className="text-primary">{quantity}</span> 
-  },
-  {
-    title: 'Estoque',
-    dataIndex: 'stockLocation.name',
-    key: 'stockLocation.name',
-  },
-  {
-    title: 'Data Lançamento',
-    dataIndex: 'stockLocation.createdAt',
-    key: 'stockLocation.createdAt',
-    render: (createdAt) =>
-      moment(createdAt).format('DD/MM/YYYY HH:mm')
   }
 ]
-class StockList extends Component {
+class TotalList extends Component {
   render() {
     const { stocks } = this.props
     return (<Table columns={columns} dataSource={stocks} />)
   }
 }
 
-export default StockList
+export default TotalList

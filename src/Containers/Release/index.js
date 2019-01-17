@@ -12,6 +12,7 @@ class Relase extends Component {
     modalOpen: false,
     productReservation: null,
     selectedType: 'release',
+    employeeId: null
   }
 
   historyColumns = [
@@ -49,7 +50,7 @@ class Relase extends Component {
       dataIndex: 'quantity',
     },
     {
-      title: 'Qtd. Disponivel',
+      title: 'Qtd. Pendente',
       dataIndex: 'currentQuantity',
     },
     {
@@ -57,7 +58,9 @@ class Relase extends Component {
       dataIndex: 'id',
       key: 'action',
       render: (id, record) => 
-      <Button onClick={() => this.showModal(record)}>detail</Button>
+      record.currentQuantity > 0 ?
+        <Button onClick={() => this.showModal(record)}>detalhes</Button> :
+      ''
     }
   ]
 
@@ -66,8 +69,9 @@ class Relase extends Component {
     <Table pagination={false} columns={this.historyColumns} dataSource={record.history} />
   </div> 
 
-  handleHistoryDelete = (id) => {
-    this.props.handleHistoryDelete(id)
+  handleHistoryDelete = async (id) => {
+    await this.props.handleHistoryDelete(id)
+    await this.props.fetchList(this.state.employeeId)
   }
 
   showModal = (productReservation) => {
@@ -92,7 +96,6 @@ class Relase extends Component {
 
   renderModal() {
     const { productReservation } = this.state
-
     return (
       <Modal visible={this.state.modalOpen} footer={false} onCancel={this.closeModal}>
         <div className="wrapperRelease">
@@ -117,8 +120,8 @@ class Relase extends Component {
               />
           </div>
           <div>
-            <h3 className="titleRelease">Relógio de Ponto Prisma SF</h3>
-            <p className="subtitleRelease">Quantidade Reserva: 10 un</p>
+            <h3 className="titleRelease">{productReservation.product.name}</h3>
+            <p className="subtitleRelease">Quantidade Reserva: {productReservation.quantity} un</p>
           </div>
           <div className="footerRelease">
             <Button type="primary" block onClick={this.handleSubmit}>Salvar</Button>
@@ -143,7 +146,10 @@ class Relase extends Component {
 
     this.setState({
       modalOpen: false,
-    }, () => this.props.handleSubmit(formattedItem))
+    }, async () =>{
+      await this.props.handleSubmit(formattedItem)
+      this.props.fetchList(this.state.employeeId)
+    })
   }
 
   onChange = (selectedQuantity) => {
@@ -152,11 +158,44 @@ class Relase extends Component {
     })
   }
 
-  render() { 
+  onChangeTechnical = (employeeId) => {
+    this
+      .setState(
+        { employeeId },
+        () => this.props.fetchList(employeeId)
+      )
+  }
+
+  renderEmployeeOptions = () => {
+    const { technical } = this.props
+
+    return (
+      <Select
+        showSearch
+        style={{ width: 200 }}
+        placeholder="Selecione o técnico!"
+        onChange={this.onChangeTechnical}
+      >
+        {
+          technical.map(
+            tec =>
+              <Option 
+                key={tec._id} 
+                value={tec._id}>
+                  {tec.nome}
+              </Option>
+          )
+        }
+
+      </Select>
+    )
+  }
+
+  render() {  
     const { productReservationList } = this.props
     return ( 
      <div>
-     
+       {this.renderEmployeeOptions()}
        <div>
         <Table
           columns={this.columns}

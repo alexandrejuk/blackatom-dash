@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Switch, Input, Button, InputNumber } from 'antd';
+import { Form, Input, Button } from 'antd';
 
 const FormItem = Form.Item;
 

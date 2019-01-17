@@ -1,24 +1,25 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import { Button } from 'antd'
 
 import IndividualProductListContainer from '../../../../../Containers/IndividualProduct/List'
-import individualProductService from '../../../../../services/individualProduct'
+import IndividualProductService from '../../../../../services/individualProduct'
 
 import './index.css'
 
 class IndividualProductList extends Component {
+  individualProductService = null
   state = { 
     individualProducts: []
   }
 
   componentDidMount() {
+    this.individualProductService = new IndividualProductService()
     this.getIndividualProducts()
   }
 
   getIndividualProducts = async () => {
-    const individualProducts = await individualProductService.individualProductList()
+    const individualProducts = await this.individualProductService.individualProductList()
         .then(response => response.data)
+
     this.setState({ individualProducts })
   }
 
@@ -27,9 +28,6 @@ class IndividualProductList extends Component {
       <div className="wrapperProducts">
         <div className="productListHeader">
           <h1>Gerenciar Produtos Disponíveis</h1>
-            {/* <Link className="linkNav" to={'/logged/stock/available/new'}>
-              <Button  type="primary"> Novo </ Button>
-            </Link> */}
         </div>
         <div className="productListContent"><IndividualProductListContainer individualProducts={this.state.individualProducts} /></div>
       </div>

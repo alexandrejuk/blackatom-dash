@@ -6,8 +6,9 @@ import Logged from './Logged'
 
 const Pages = () => (
   <Switch>
-    <Route path="/logged" component={Logged}/>
-    <Redirect to='/logged'/>
+    <Route path="/logged/" component={Logged}/>
+    <Route path="/auth" component={Auth}/>
+    <Redirect to='/auth'/>
   </Switch>
 )
 export default Pages

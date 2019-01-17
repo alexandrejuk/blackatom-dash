@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Layout, Icon } from 'antd'
 import { Route, Switch } from 'react-router-dom'
+import request from '../../services/request'
+
 
 import SideMenu from '../../Containers/SideMenu'
 
@@ -17,6 +19,12 @@ const { Header, Content, Footer } = Layout
 class Logged extends Component {
   state = {
     collapsed: false,
+  }
+
+  constructor(props){
+    super(props)
+
+    request.forceRenewAxiosInstance()
   }
 
   toggle = () => {
