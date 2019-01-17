@@ -19,7 +19,9 @@ class EditProduct extends Component {
   productService = null
   form = null
   state = { 
-    product: {}
+    product: {
+      quantityEntries: []
+    }
   }
 
   componentDidMount() {
@@ -32,13 +34,11 @@ class EditProduct extends Component {
 
     const product = await this.productService.getProductById(id)
       .then(response => response.data)
-
+    this.setState({ product })
     this.setForm(product)
   }
 
-  setForm = (product) => {
-    this.setState({ product })
-    
+  setForm = (product) => {   
     const productForm = omit(['id', 'createdAt', 'updatedAt', 'deletedAt'], product)
     this.form.props.form.setFieldsValue(productForm)
   }
@@ -55,10 +55,19 @@ class EditProduct extends Component {
     }
   }
 
+  renderQtdStock = stock => (
+    <Alert
+      key={stock.stockLocationId}
+      className="mb-10"
+      showIcon={false}
+      message={`Estoque: ${stock.stockLocation.name} - ${stock.total} un`} banner />
+  )
+
   render() { 
     return (
       <div className="wrapperEditroduct">
       <h1 className="editProductTitle">Editar Produto</h1>
+      {this.state.product.quantityEntries.map(this.renderQtdStock)}
       <ProductForm wrappedComponentRef={(form) => this.form = form} actionLabel="Editar" onSubmit={this.handleOnSubmit}/> 
     </div>
     )
