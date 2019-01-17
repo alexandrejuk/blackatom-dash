@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './index.css'
-import { message } from 'antd'
+import { message, Alert } from 'antd'
 import { omit } from 'ramda'
 
 import ProductForm from '../../../../Containers/Product/Form'
