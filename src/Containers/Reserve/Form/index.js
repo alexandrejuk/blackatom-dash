@@ -53,7 +53,14 @@ class NewReserve extends Component {
   }
   
   render() {
-    const { stockLocations, products, handleGetCustomerByCnpj, customer, listCalls } = this.props
+    const {
+      stockLocations,
+      products,
+      handleGetCustomerByCnpj,
+      customer,
+      listCalls,
+      onSearchProduct,
+    } = this.props
     return (
       <div>
         <ReserveForm 
@@ -70,6 +77,7 @@ class NewReserve extends Component {
         <ReserveProductForm 
           wrappedComponentRef={(form) => this.productFormRef = form} 
           products={products}
+          onSearch={onSearchProduct}
           onSubmit={this.handleAddProductList}
         />
         <ReserveProductList handleRemoveProduct={this.handleRemoveProduct} products={this.state.productList}/>

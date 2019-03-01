@@ -60,11 +60,18 @@ class NewReserve extends Component {
     this.setState({ listCalls })
   }
 
-  async getProducts() {
-    const products = await this.productService
-      .productList()
+  getProducts = async (searchTerm = '') => {
+    const productsResponse = await this.productService
+      .productList(1, {
+        specific: {
+          name: searchTerm
+        }
+      })
       .then(response => response.data)
-    this.setState({ products })
+    
+      this.setState({
+        products: productsResponse.rows,
+      })
   }
 
   async getStockLocations() {
@@ -120,6 +127,7 @@ class NewReserve extends Component {
   render() { 
     return (
       <NewReserveContainer
+        onSearchProduct={this.getProducts}
         handleGetCustomerByCnpj={this.handleGetCustomerByCnpj}
         products={this.state.products} 
         customer={this.state.customer}

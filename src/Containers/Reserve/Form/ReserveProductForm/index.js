@@ -36,14 +36,7 @@ class ReserveProductForm extends Component {
   }
 
   render() {
-    const { form: { getFieldDecorator }, products  } = this.props
-    const { productSearch } = this.state
-
-    const filteredProducts = productSearch.length < 1 ? products
-      : products.filter(({ name }) => {
-        const upperCaseName = productSearch.toUpperCase()
-        return name.includes(upperCaseName)
-      })
+    const { form: { getFieldDecorator }, products, onSearch  } = this.props
 
     return (
       <Form layout="inline" onSubmit={this.handleSubmit}>
@@ -58,10 +51,10 @@ class ReserveProductForm extends Component {
                 <AutoComplete
                   style={{ width: 500 }}
                   onSelect={this.handleOnSelect}
-                  onSearch={this.handleSearch}
+                  onSearch={onSearch}
                   placeholder="Buscar produto aqui"
                 >
-                  {filteredProducts.map(product => (<AutoCompleteOption
+                  {products.map(product => (<AutoCompleteOption
                     key={product.id}
                     value={JSON.stringify(product)}
                   >
