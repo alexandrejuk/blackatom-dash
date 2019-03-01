@@ -15,11 +15,16 @@ class Search extends Component {
   }
 
   clean = () => {
-    this.setState({ search: '' })
+    this.setState({ search: '' }, this.onSearch)
   }
 
   onSearch = () => {
-    this.props.onSearch(this.state.search)
+    this.props.onSearch({
+      global: {
+        fields: this.props.globalFields,
+        value: this.state.search
+      }
+    })
   }
   
 	render()  {

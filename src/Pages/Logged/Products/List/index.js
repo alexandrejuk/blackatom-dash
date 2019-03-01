@@ -20,8 +20,8 @@ class ProductList extends Component {
     this.getProducts()
   }
 
-  getProducts = async (page = 1) => {
-    const { data } = await this.productService.productList(page)
+  getProducts = async (page = 1, filters = {}) => {
+    const { data } = await this.productService.productList(page, filters)
 
     this.setState({
       products: data.rows,
@@ -35,6 +35,10 @@ class ProductList extends Component {
     this.getProducts(page)
   }
 
+  onSearch = (filters) => {
+    this.getProducts(1, filters)
+  }
+
   render() { 
     return (
       <div className="wrapperProducts">
@@ -46,6 +50,7 @@ class ProductList extends Component {
         </div>
         <div className="productListContent">
           <ProductListContainer
+            onSearch={this.onSearch}
             currentPage={this.state.currentPage}
             count={this.state.count}
             products={this.state.products}
