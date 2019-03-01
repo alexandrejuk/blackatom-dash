@@ -37,11 +37,18 @@ class NewOrder extends Component {
     this.getStockLocations()
   }
 
-  async getProducts() {
-    const products = await this.productService
-      .productList()
+  getProducts = async (searchTerm = '') => {
+    const productsResponse = await this.productService
+      .productList(1, {
+        specific: {
+          name: searchTerm
+        }
+      })
       .then(response => response.data)
-    this.setState({ products })
+    
+      this.setState({
+        products: productsResponse.rows,
+      })
   }
 
   async getStockLocations() {
@@ -90,6 +97,7 @@ class NewOrder extends Component {
       <div>
         <h1>Nova Compra</h1>
         <NewOrderContainers 
+          onProductSearch={this.getProducts}
           products={this.state.products} 
           stockLocations={this.state.stockLocations} 
           actionLabel="Salvar"
