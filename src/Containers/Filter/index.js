@@ -1,64 +1,53 @@
-import React, { PureComponent } from 'react'
-import {
-  Card,
-  DatePicker,
-  Input,
-  Button
-} from 'antd'
-import PropTypes from 'prop-types'
-import classnames from 'classnames'
+import React, { Component } from 'react'
+import { Input, Button } from 'antd'
 import './styles.css'
 
-const { RangePicker } = DatePicker
-
-const FilterHeader = ({ onShowMore, collapsed }) => <div className="cartTitle">
-  <RangePicker />
-  <Input style={{ width: "200px"}}/>
-  <Button type="primary" icon={collapsed ? 'down' : 'up'} onClick={onShowMore}> Mais Filtros </Button>
-  <Button type="primary"> Limpar Filtros </Button>
-  <Button type="primary"> Pesquisar </Button>
-</div>
-
-class Filter extends PureComponent {
+const InputSearch = Input.Search
+class Search extends Component {
   state = {
-    collapsed: false,
+    search: ''
   }
 
-  handleOnShowMore = () => {
-    this.setState((state) => ({
-      collapsed: !state.collapsed
-    }))
-  }
-
-  render () {
-    const { filters } = this.props
-    const cardClasses = classnames({
-      cardCollapsed: this.state.collapsed
+  onChange = (event) => {
+    this.setState({
+      search: event.target.value
     })
-
-    return (<div>
-      <Card
-        title={<FilterHeader onShowMore={this.handleOnShowMore} collapsed={this.state.collapsed}/>}
-        className={cardClasses}
-        style={{ width: '100%' }}
-      >
-      {filters.map(filter => (
-        <div className="input-group" key={filter.property} >
-          <label className="label-filter">{filter.label} </label>
-          <Input 
-            style={{ width: filter.width }}
-            type={filter.type}
-            name={filter.property}
-          />
-        </div>
-      ))}
-      </Card>
-    </div>)
   }
-} 
 
-Filter.propTypes = {
-  filters: PropTypes.array.isRequired
+  clean = () => {
+    this.setState({ search: '' }, this.onSearch)
+  }
+
+  onSearch = () => {
+    this.props.onSearch({
+      global: {
+        fields: this.props.globalFields,
+        value: this.state.search
+      }
+    })
+  }
+  
+	render()  {
+    const {
+      placeholder,
+    } = this.props
+
+    return (  
+      <div className="wrapperInputSearch">
+        <InputSearch
+          placeholder={placeholder}
+          onChange={this.onChange}
+          value={this.state.search}
+        />
+        <Button className="margin-sides10" onClick={this.clean}>
+          LIMPAR
+        </Button>
+        <Button type="primary" onClick={this.onSearch}>
+          FILTRAR
+        </Button>
+      </div>
+    ) 
+  }
 }
 
-export default Filter
+export default Search

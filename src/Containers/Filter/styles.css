@@ -1,16 +1,23 @@
-.cardCollapsed > .ant-card-body {
-  display: none;
-}
-.cartTitle > * {
-  margin-left: 10px;
-}
-.ant-card-body {
+.wrapperInputSearch {
+  background: #fff;
+  border-bottom: 1px solid #e8e8e8;
+  border-radius: 2px;
+  padding: 24px 0px;
+  height: auto;
   display: flex;
-  flex-wrap: wrap;
 }
-.input-group {
-  padding: 0 5px;
+
+.filtersGroup {
+  display: none;
+  margin-top: 12px;
+  background: #F3F2F3;
+  padding: 12px;
 }
-.label-filter {
-  display: block
+
+.filterShow {
+  display: block;
+}
+
+.margin-sides10 {
+  margin: 0 10px;
 }

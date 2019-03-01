@@ -1,5 +1,6 @@
 import { path } from 'ramda'
 import axios from 'axios';
+import qs from 'qs'
 
 const HOST = process.env.REACT_APP_HOST
 const PORT = 3003
@@ -12,7 +13,8 @@ const createInstance = () => {
     baseURL: `${HOST}:${PORT}/api`,
     headers: {
       Authorization: `bearer ${token}`,
-    }
+    },
+    paramsSerializer: qs.stringify,
   })
   
   axiosInstace.interceptors.response.use(

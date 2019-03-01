@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Table } from 'antd';
+import Filter from '../../Filter'
 
 const columns = [
   {
@@ -40,8 +41,27 @@ const columns = [
 ]
 class List extends Component {
   render() {
-    const { products } = this.props
-    return (<Table columns={columns} dataSource={products} />)
+    const { products, onPaginationChange, count, currentPage, onSearch } = this.props
+    return (
+      <div>
+        <Filter
+          placeholder="pesquise pelo nome, marca, catetoria ou sku"
+          onSearch={onSearch}
+          globalFields={['name', 'brand', 'category', 'sku']}
+        />
+        <Table
+          pagination={{
+            total: count,
+            current: currentPage,
+            pageSize: 25,
+            onChange: onPaginationChange,
+          }}
+          columns={columns}
+          dataSource={products}
+          position='top'
+        />
+      </div>
+    )
   }
 }
 
