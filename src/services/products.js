@@ -11,8 +11,16 @@ class ProductService {
     return this.axios.post(endpoint, product)
   }
   
-  productList = () => {
-    return this.axios.get(endpoint)
+  productList = (page) => {
+    return this.axios.get(endpoint, { params: {
+      page,
+      total: 25,
+      filters: {
+        specific: {
+          name: 'EFLSZOCZMT'
+        }
+      }
+    }})
   }
   
   getProductById = (id) => {

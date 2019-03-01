@@ -40,8 +40,19 @@ const columns = [
 ]
 class List extends Component {
   render() {
-    const { products } = this.props
-    return (<Table columns={columns} dataSource={products} />)
+    const { products, onPaginationChange, count, currentPage } = this.props
+    return (<Table
+      pagination={{
+        total: count,
+        current: currentPage,
+        pageSize: 25,
+        onChange: onPaginationChange,
+      }}
+      columns={columns}
+      dataSource={products}
+      position='top'
+    />
+    )
   }
 }
 

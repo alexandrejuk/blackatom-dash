@@ -10,7 +10,9 @@ import './index.css'
 class ProductList extends Component {
   productService = null
   state = { 
-    products: []
+    products: [],
+    count: 0,
+    currentPage: 1,
   }
 
   componentDidMount() {
@@ -18,9 +20,19 @@ class ProductList extends Component {
     this.getProducts()
   }
 
-  async getProducts() {
-    const products = await this.productService.productList()
-    this.setState({ products })
+  getProducts = async (page = 1) => {
+    const { data } = await this.productService.productList(page)
+
+    this.setState({
+      products: data.rows,
+      count: data.count,
+      currentPage: page,
+    })
+  }
+
+
+  onPaginationChange = (page, total) => {
+    this.getProducts(page)
   }
 
   render() { 
@@ -32,7 +44,14 @@ class ProductList extends Component {
               <Button  type="primary"> Novo </ Button>
             </Link>
         </div>
-        <div className="productListContent"><ProductListContainer products={this.state.products.data} /></div>
+        <div className="productListContent">
+          <ProductListContainer
+            currentPage={this.state.currentPage}
+            count={this.state.count}
+            products={this.state.products}
+            onPaginationChange={this.onPaginationChange}
+          />
+        </div>
       </div>
     )
   }
