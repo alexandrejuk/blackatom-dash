@@ -10,14 +10,33 @@ class ReservedList extends Component {
   reserveService = null
 
   state = { 
-    reservedList: []
+    reservedList: [],
+    count: 0,
+    currentPage: 1,
   }
 
   async componentDidMount(){
     this.reserveService = new ReserveService()
-    const { data: reservedList } = await this.reserveService.getAll()
-    
-    this.setState({ reservedList })
+    this.getReservations()
+  }
+
+  getReservations = async (page = 1, filters = {}) => {
+    const { data: reservedListRes } = await this.reserveService.getAll(page, filters)
+
+    console.log(reservedListRes)
+    this.setState({
+      reservedList: reservedListRes.rows,
+      count: reservedListRes.count,
+      currentPage: page,
+    })
+  }
+
+  onPaginationChange = (page, total) => {
+    this.getReservations(page)
+  }
+
+  onSearch = (filters) => {
+    this.getReservations(1, filters)
   }
 
   render() { 
@@ -30,7 +49,12 @@ class ReservedList extends Component {
             </Link>
         </div>
         <div className="reservedListContent">
-          <ListContainerReserve reservedList={this.state.reservedList} />
+          <ListContainerReserve
+            reservedList={this.state.reservedList}
+            onPaginationChange={this.onPaginationChange}
+            onSearch={this.onSearch}
+            currentPage={this.state.currentPage}
+          />
         </div>
       </div>
     )

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Table } from 'antd';
 import moment from 'moment';
+import Filter from '../../Filter'
 
 const columns = [
   {
@@ -33,8 +34,27 @@ const columns = [
 ]
 class List extends Component {
   render() {
-    const { reservedList } = this.props
-    return (<Table columns={columns} dataSource={reservedList} />)
+    const { reservedList, onSearch, count, onPaginationChange, currentPage } = this.props
+    return (
+      <div>
+        <Filter
+          placeholder="pesquise pelo nome do cliente ou codigo de rastreamento"
+          onSearch={onSearch}
+          globalFields={['trackingCode', '$customer.name$']}
+        />
+        <Table
+          columns={columns}
+          dataSource={reservedList}
+          pagination={{
+            total: count,
+            current: currentPage,
+            pageSize: 25,
+            onChange: onPaginationChange,
+          }}
+          position='top'
+        />
+      </div>
+    )
   }
 }
 

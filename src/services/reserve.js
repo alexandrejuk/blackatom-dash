@@ -25,8 +25,14 @@ class ReserveService {
     return this.axios.delete(`${reservationHistory}/${id}`)
   }
   
-  getAll = () => {
-    return this.axios.get(endpoint)
+  getAll = (page, filters) => {
+    return this.axios.get(endpoint, {
+      params: {
+        page,
+        total: 25,
+        filters,
+      }
+    })
   }
   
   getById = (id) => {
