@@ -13,6 +13,7 @@ class ReservedList extends Component {
     reservedList: [],
     count: 0,
     currentPage: 1,
+    filters: {},
   }
 
   async componentDidMount(){
@@ -28,11 +29,12 @@ class ReservedList extends Component {
       reservedList: reservedListRes.rows,
       count: reservedListRes.count,
       currentPage: page,
+      filters,
     })
   }
 
   onPaginationChange = (page, total) => {
-    this.getReservations(page)
+    this.getReservations(page, this.state.filters)
   }
 
   onSearch = (filters) => {
@@ -54,6 +56,7 @@ class ReservedList extends Component {
             onPaginationChange={this.onPaginationChange}
             onSearch={this.onSearch}
             currentPage={this.state.currentPage}
+            count={this.state.count}
           />
         </div>
       </div>

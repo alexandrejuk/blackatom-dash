@@ -13,6 +13,7 @@ class ProductList extends Component {
     products: [],
     count: 0,
     currentPage: 1,
+    filters: {},
   }
 
   componentDidMount() {
@@ -27,12 +28,13 @@ class ProductList extends Component {
       products: data.rows,
       count: data.count,
       currentPage: page,
+      filters,
     })
   }
 
 
   onPaginationChange = (page, total) => {
-    this.getProducts(page)
+    this.getProducts(page, this.state.filters)
   }
 
   onSearch = (filters) => {
