@@ -47,7 +47,9 @@ class List extends Component {
         <Filter
           placeholder="pesquise pelo nome, marca, catetoria ou sku"
           onSearch={onSearch}
-          globalFields={['name', 'brand', 'category', 'sku']}
+          global={{
+            product: ['name', "category", "brand", "sku"],
+          }}
         />
         <Table
           pagination={{
