@@ -40,7 +40,9 @@ class List extends Component {
         <Filter
           placeholder="pesquise pelo nome do cliente ou codigo de rastreamento"
           onSearch={onSearch}
-          globalFields={['trackingCode', '$customer.name$']}
+          global={{
+            reservation: ['trackingCode', "$customer.name$"],
+          }}
         />
         <Table
           columns={columns}

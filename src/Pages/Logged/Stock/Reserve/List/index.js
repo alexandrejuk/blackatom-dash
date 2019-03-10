@@ -24,7 +24,6 @@ class ReservedList extends Component {
   getReservations = async (page = 1, filters = {}) => {
     const { data: reservedListRes } = await this.reserveService.getAll(page, filters)
 
-    console.log(reservedListRes)
     this.setState({
       reservedList: reservedListRes.rows,
       count: reservedListRes.count,

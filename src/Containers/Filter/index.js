@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Input, Button } from 'antd'
 import './styles.css'
+import * as R from 'ramda'
 
 const InputSearch = Input.Search
 class Search extends Component {
@@ -19,12 +20,22 @@ class Search extends Component {
   }
 
   onSearch = () => {
-    this.props.onSearch({
-      global: {
-        fields: this.props.globalFields,
-        value: this.state.search
+    let filters = {}
+
+    for(const modelName in this.props.global) {
+      const modelFields = this.props.global[modelName]
+      console.log(modelFields)
+      const setGlobal = R.lensPath([modelName, 'global']);
+      const global = {
+        fields: modelFields,
+        value: this.state.search,
       }
-    })
+  
+      filters = R.set(setGlobal, global, filters)
+    }
+
+    console.dir(filters)
+    this.props.onSearch(filters)
   }
   
 	render()  {
