@@ -40,8 +40,10 @@ class NewOrder extends Component {
   getProducts = async (searchTerm = '') => {
     const productsResponse = await this.productService
       .productList(1, {
-        specific: {
-          name: searchTerm
+        product: {
+          specific: {
+            name: searchTerm
+          }
         }
       })
       .then(response => response.data)
